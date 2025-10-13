@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+
+  frontend:
+    container_name: frontend-container
+    build:
+      context: ./frontend
+    ports:
+      - "3001:3000"
+    environment:
+      - REACT_APP_API_URL=http://backend-container:5003/api/users
+    depends_on:
+      - backend
+    networks:
+      - mern-network
+    restart: always
+
+  backend:
+    container_name: backend-container
+    build:
+      context: ./backend
+    ports:
+      - "5003:5003"
+    environment:
+      - MONGO_URI=mongodb://mongo-container:27017/registrationDB
+      - PORT=5003
+    depends_on:
+      - mongo
+    networks:
+      - mern-network
+    restart: always
+
+  mongo:
+    image: mongo
+    container_name: mongo-container
+    environment:
+      - MONGO_INITDB_DATABASE=registrationDB
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mern-network
+    restart: always
+
+volumes:
+  mongo-data:
+
+networks:
+  mern-network:
+    driver: bridge
