@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  workflow_dispatch: # Allows you to manually trigger the workflow from the GitHub Actions UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # The environment in which the job runs
+
+    steps:
+      # Checkout repository code
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      # Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+
+      # Get Public IP and set it as an environment variable
+      - name: Get Public IP of Host Machine
+        id: get_public_ip
+        run: |
+          PUBLIC_IP=$(curl -s http://checkip.amazonaws.com)
+          echo "PUBLIC_IP_HOST_MACHINE=${PUBLIC_IP}" >> $GITHUB_ENV # Set the environment variable for later steps
+
+      # Set up Docker Compose and Build Services
+      - name: Set up Docker Compose and Build Services
+        run: |
+          docker-compose -f docker-compose.yml up --build -d # Build the containers and start them in detached mode
+
+      # Wait for services to be ready (MongoDB, Backend, Frontend)
+      - name: Wait for MongoDB to be ready
+        run: |
+          sleep 30 # Wait for the services to fully spin up (you may adjust this duration)
+
+      # Test if the containers are running
+      - name: Verify if containers are running
+        run: |
+          docker ps # This will list all running containers to verify if everything is up
+
+      # Clean up by stopping containers (optional, depends on your use case)
+      - name: Stop Docker Compose services
+        run: |
+          docker-compose down
