@@ -25,7 +25,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      # 4️⃣ Create .env file dynamically (your environment variables)
+      # 4️⃣ Create .env file dynamically
       - name: Create environment file
         run: |
           echo "REACT_APP_API_URL=http://backend-container:5003/api/users" >> .env
@@ -45,7 +45,13 @@ jobs:
       - name: Verify running containers
         run: docker ps -a
 
-      # 8️⃣ Stop and clean up containers
+      # 8️⃣ Simple API test
+      - name: Test backend API
+        run: |
+          echo "Testing backend API..."
+          curl -s http://localhost:5003/api/users | grep "users" || exit 1
+
+      # 9️⃣ Stop and clean up containers
       - name: Stop Docker Compose services
         if: always()
         run: docker-compose down
