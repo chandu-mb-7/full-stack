@@ -35,28 +35,53 @@ jobs:
 
       # 5️⃣ Build and start Docker containers
       - name: Build and start Docker containers
-        run: docker-compose up --build -d
+        run: |
+          docker-compose up -d --build
+          docker-compose ps
 
-      # 6️⃣ Wait for MongoDB and backend (better: poll until ready)
+      # 6️⃣ Wait for backend to be ready
       - name: Wait for backend API
         run: |
+          echo "⏳ Waiting for backend to be ready..."
           for i in {1..30}; do
-            docker exec backend-container curl -s http://localhost:5003/api/users && break
-            echo "Waiting for backend..."
+            if docker exec backend-container curl -s http://localhost:5003/api/users > /dev/null; then
+              echo "✅ Backend is ready!"
+              break
+            fi
+            echo "Waiting ($i/30)..."
             sleep 5
           done
 
-      # 7️⃣ Verify running containers
-      - name: Verify containers
+      # 7️⃣ Wait for frontend to be ready
+      - name: Wait for frontend
+        run: |
+          echo "⏳ Waiting for frontend to be ready..."
+          for i in {1..30}; do
+            if docker exec frontend-container curl -s http://localhost:3000 > /dev/null; then
+              echo "✅ Frontend is ready!"
+              break
+            fi
+            echo "Waiting ($i/30)..."
+            sleep 5
+          done
+
+      # 8️⃣ Verify running containers
+      - name: Verify running containers
         run: docker ps -a
 
-      # 8️⃣ Test backend API
+      # 9️⃣ Test backend API
       - name: Test backend API
         run: |
-          echo "Testing backend API inside container..."
-          docker exec backend-container curl -s http://localhost:5003/api/users | grep "users" || exit 1
+          echo "🧪 Testing backend API..."
+          docker exec backend-container curl -s http://localhost:5003/api/users || exit 1
 
-      # 9️⃣ Stop and clean up containers
+      # 🔟 Test frontend response
+      - name: Test frontend page
+        run: |
+          echo "🧪 Testing frontend..."
+          docker exec frontend-container curl -s http://localhost:3000 | grep "<!DOCTYPE html>" || exit 1
+
+      # 1️⃣1️⃣ Stop and clean up
       - name: Stop Docker Compose services
         if: always()
-        run: docker-compose down
+        run: docker-compose down -v
