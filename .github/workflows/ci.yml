@@ -4,15 +4,15 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch:  # allows manual trigger
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout code
-      - name: Checkout repository
+      # 1️⃣ Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       # 2️⃣ Set up Docker Buildx
@@ -33,23 +33,28 @@ jobs:
           echo "PORT=5003" >> .env
           echo "MONGO_URI=mongodb://mongo-container:27017/registrationDB" >> .env
 
-      # 5️⃣ Build and start all services
+      # 5️⃣ Build and start Docker containers
       - name: Build and start Docker containers
         run: docker-compose up --build -d
 
-      # 6️⃣ Wait for services to initialize
-      - name: Wait for MongoDB and backend
-        run: sleep 25
+      # 6️⃣ Wait for MongoDB and backend (better: poll until ready)
+      - name: Wait for backend API
+        run: |
+          for i in {1..30}; do
+            docker exec backend-container curl -s http://localhost:5003/api/users && break
+            echo "Waiting for backend..."
+            sleep 5
+          done
 
-      # 7️⃣ Verify containers are running
-      - name: Verify running containers
+      # 7️⃣ Verify running containers
+      - name: Verify containers
         run: docker ps -a
 
-      # 8️⃣ Simple API test
+      # 8️⃣ Test backend API
       - name: Test backend API
         run: |
-          echo "Testing backend API..."
-          curl -s http://localhost:5003/api/users | grep "users" || exit 1
+          echo "Testing backend API inside container..."
+          docker exec backend-container curl -s http://localhost:5003/api/users | grep "users" || exit 1
 
       # 9️⃣ Stop and clean up containers
       - name: Stop Docker Compose services
