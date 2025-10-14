@@ -1,13 +1,13 @@
-name: CI - Docker Compose Fullstack
+name: CI/CD - Docker Compose Fullstack
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:  # allows manual trigger
+  workflow_dispatch: # allows manual trigger
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +25,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      # 4️⃣ Create .env file dynamically
-      - name: Create environment file
+      # 4️⃣ Create environment file
+      - name: Create .env file
         run: |
           echo "REACT_APP_API_URL=http://backend-container:5003/api/users" >> .env
           echo "FRONTEND_PORT=3000" >> .env
@@ -34,54 +34,58 @@ jobs:
           echo "MONGO_URI=mongodb://mongo-container:27017/registrationDB" >> .env
 
       # 5️⃣ Build and start Docker containers
-      - name: Build and start Docker containers
+      - name: Build and start containers
         run: |
           docker-compose up -d --build
           docker-compose ps
 
-      # 6️⃣ Wait for backend to be ready
-      - name: Wait for backend API
-        run: |
-          echo "⏳ Waiting for backend to be ready..."
-          for i in {1..30}; do
-            if docker exec backend-container curl -s http://localhost:5003/api/users > /dev/null; then
-              echo "✅ Backend is ready!"
-              break
-            fi
-            echo "Waiting ($i/30)..."
-            sleep 5
-          done
-
-      # 7️⃣ Wait for frontend to be ready
-      - name: Wait for frontend
-        run: |
-          echo "⏳ Waiting for frontend to be ready..."
-          for i in {1..30}; do
-            if docker exec frontend-container curl -s http://localhost:3000 > /dev/null; then
-              echo "✅ Frontend is ready!"
-              break
-            fi
-            echo "Waiting ($i/30)..."
-            sleep 5
-          done
-
-      # 8️⃣ Verify running containers
-      - name: Verify running containers
-        run: docker ps -a
-
-      # 9️⃣ Test backend API
+      # 6️⃣ Test backend API
       - name: Test backend API
         run: |
           echo "🧪 Testing backend API..."
           docker exec backend-container curl -s http://localhost:5003/api/users || exit 1
 
-      # 🔟 Test frontend response
+      # 7️⃣ Test frontend page
       - name: Test frontend page
         run: |
           echo "🧪 Testing frontend..."
           docker exec frontend-container curl -s http://localhost:3000 | grep "<!DOCTYPE html>" || exit 1
 
-      # 1️⃣1️⃣ Stop and clean up
+      # 8️⃣ Verify containers
+      - name: Verify running containers
+        run: docker ps -a
+
+      # 9️⃣ Stop and clean up after tests
       - name: Stop Docker Compose services
         if: always()
         run: docker-compose down -v
+
+      # 🔟 Log in to Docker Hub (for deployment)
+      - name: Log in to Docker Hub
+        if: success()
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 1️⃣1️⃣ Build and push backend image
+      - name: Build and push backend image
+        if: success()
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest -f backend/Dockerfile .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+
+      # 1️⃣2️⃣ Build and push frontend image
+      - name: Build and push frontend image
+        if: success()
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest -f frontend/Dockerfile .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+
+      # ✅ 1️⃣3️⃣ Confirm deployment
+      - name: Deployment summary
+        if: success()
+        run: |
+          echo "✅ CI/CD completed successfully!"
+          echo "Frontend image: ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest"
+          echo "Backend image:  ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest"
