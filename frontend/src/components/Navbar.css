@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+}
+/*viewport fix*/
+.nb-header {
+  width: 100vw;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.nb-inner {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
+}
+
+.nb-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+/*right-side*/
+.nb-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pay-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #d9d9d9;
+  background: #fafafa;
+  color: #444;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 34px;
+  transition: all 0.2s ease;
+}
+
+.pay-btn .icon {
+  font-size: 14px;
+}
+
+.pay-btn:hover {
+  border-color: #ff5a5f;
+  color: #ff5a5f;
+}
+
+.owner-btn {
+  background-color: #009587;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 7px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  height: 34px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.owner-btn:hover {
+  background-color: #007c71;
+}
+
+.divider {
+  height: 20px;
+  width: 1px;
+  background-color: #dcdcdc;
+  margin: 0 6px;
+}
+
+.auth-link {
+  color: #222;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.auth-link:hover {
+  color: #ff5a5f;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #222;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.bars {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 1px;
+}
+
+@media (max-width: 900px) {
+  .nb-inner {
+    padding: 0 16px;
+  }
+  .auth-link,
+  .divider {
+    display: none;
+  }
+}
+
+body {
+  padding-top: 60px;
+}

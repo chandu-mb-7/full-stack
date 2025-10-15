@@ -1,0 +1,55 @@
+# Node dependencies
+backend/node_modules/
+frontend/node_modules/
+
+# Build & Output folders
+frontend/dist/
+backend/dist/
+dist/
+build/
+dist-ssr/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.production.local
+
+# Local database dumps / secrets
+dump.rdb
+*.sqlite
+*.db
+*.pem
+*.crt
+*.key
+
+
+#   OS STUFF
+
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TEMPORARY FILES
+
+*.local
+*.cache/
+.cache/
+temp/
+tmp/
