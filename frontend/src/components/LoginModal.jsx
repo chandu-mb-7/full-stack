@@ -86,11 +86,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             <>
               <div className="login-input-group">
                 <div className="country-container">
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/684/684908.png"
-                    alt="map"
-                    className="map-icon"
-                  />
+                  
                   <img
                     src="https://flagcdn.com/w20/in.png"
                     alt="flag"
