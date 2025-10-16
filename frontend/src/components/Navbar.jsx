@@ -42,7 +42,7 @@ const Navbar = () => {
               className="auth-link"
               onClick={() => {
                 console.log("Signup clicked");
-                setSignupOpen(false);
+                setSignupOpen(true);
               }}
             >
               Sign up
