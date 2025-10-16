@@ -1,71 +1,61 @@
-require('dotenv').config();
-const express = require('express');
-const twilio = require('twilio');
-const cors = require('cors');
+
+
+
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const twilio = require("twilio");
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("DB error:", err));
+
 const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-let otpStore = {}; // Temporary in-memory store
+const Otp = mongoose.model("Otp", new mongoose.Schema({
+  phone: { type: String, required: true, unique: true },
+  otp: String,
+  expiresAt: Date
+}));
 
-// Generate OTP
-function generateOTP(length = 4) {
-  let otp = '';
-  for (let i = 0; i < length; i++) {
-    otp += Math.floor(Math.random() * 10);
-  }
-  return otp;
-}
+const generateOTP = () => Math.floor(1000 + Math.random() * 9000).toString();
 
-app.post('/send-otp', async (req, res) => {
-  console.log("Request body:", req.body); // <- check if phone exists
-  const { phone } = req.body;
-  if (!phone) return res.status(400).json({ error: 'Phone number required' });
-
-  const otp = generateOTP();
-  otpStore[phone] = { otp, expires: Date.now() + 1 * 60 * 1000 }; // 1 min expiry
-
+app.post("/send-otp", async (req, res) => {
   try {
-    const message = await client.messages.create({
-      body: `Your OTP is ${otp}`,
-      from: process.env.TWILIO_PHONE_NUMBER,
-      to: phone
-    });
+    const { phone, viaWhatsApp } = req.body;
+    if (!phone) return res.status(400).json({ error: "Phone required" });
 
-    console.log("OTP generated:", otp);  // <- check if OTP is generated
-    console.log("Twilio SID:", message.sid);
+    const otp = generateOTP();
+    const expiresAt = new Date(Date.now() + 60 * 1000);
+    await Otp.findOneAndUpdate({ phone }, { otp, expiresAt }, { upsert: true });
 
-    return res.json({
-      success: true,
-      otp: otp,
-      sid: message.sid
-    });
+    const from = viaWhatsApp ? process.env.WHATSAPP_FROM : process.env.TWILIO_PHONE_NUMBER;
+    const to = viaWhatsApp ? `whatsapp:${phone}` : phone;
+    await client.messages.create({ body: `Your OTP is ${otp}`, from, to });
 
+    res.json({ success: true, message: "OTP sent" });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
-
-// Verify OTP endpoint
-app.post('/verify-otp', (req, res) => {
-  const { phone, otp } = req.body;
-  const record = otpStore[phone];
-
-  if (!record) return res.status(400).json({ error: 'OTP not sent' });
-  if (record.expires < Date.now()) {
-    delete otpStore[phone];
-    return res.status(400).json({ error: 'OTP expired' });
+app.post("/verify-otp", async (req, res) => {
+  try {
+    const { phone, otp } = req.body;
+    const record = await Otp.findOne({ phone });
+    if (!record) return res.status(400).json({ error: "OTP not found" });
+    if (record.expiresAt < new Date()) return res.status(400).json({ error: "OTP expired" });
+    if (record.otp !== otp) return res.status(400).json({ error: "Invalid OTP" });
+    await Otp.deleteOne({ phone });
+    res.json({ success: true, message: "OTP verified" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-  if (record.otp !== otp) return res.status(400).json({ error: 'Invalid OTP' });
-
-  delete otpStore[phone]; // OTP used
-  return res.json({ success: true, message: 'OTP verified!' });
 });
 
-app.listen(5000, () => console.log('Server running on port 5000'));
+app.listen(process.env.PORT || 5000, () => console.log("Server running"));
