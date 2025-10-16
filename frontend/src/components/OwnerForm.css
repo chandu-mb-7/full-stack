@@ -1,10 +1,11 @@
 
 .owner-page {
-  width: 100%;
+  width: 130%;
   background: #fff;
-  padding-top: 100px; 
+  padding-top: 100px;
   padding-bottom: 80px;
   text-align: center;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 .heading {
@@ -15,34 +16,31 @@
 }
 
 .owner-wrapper {
-  width: 120%;
   display: flex;
   justify-content: center;
 }
 
 .owner-container {
   display: grid;
-  grid-template-columns: 0.9fr 1.7fr; 
+  grid-template-columns: 0.9fr 1.7fr;
   gap: 36px;
-  max-width: 1300px;                 
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0px 30px;                    
-  align-items: start;
+  padding: 0 30px;
+  align-items: stretch; /* ensures equal height */
   box-sizing: border-box;
 }
 
-
-/*that sliding left right*/
+/* ===== LEFT & RIGHT CARDS ===== */
 .owner-left,
 .owner-right {
   width: 100%;
-  min-height: 440px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #ebebeb;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-/*Info Card */
+/* ===== LEFT INFO CARD ===== */
 .owner-left {
   background: #fafafa;
   padding: 28px 24px;
@@ -50,6 +48,9 @@
   font-size: 14px;
   color: #444;
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .owner-left h4 {
@@ -58,17 +59,34 @@
   font-weight: 600;
 }
 
-.owner-left ul {
+/* Tick List */
+.tick-list {
   list-style: none;
   padding: 0;
-  margin-bottom: 25px;
+  margin: 0 0 25px 0;
 }
 
-.owner-left ul li {
-  margin-bottom: 8px;
+.tick-list li {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.tick-icon {
+  color: #00a884;
+  font-size: 14px;
+}
+
+/* Feedback Section */
+.feedback-section {
+  margin-top: 6px;
+  padding-top: 0;
+  border-top: none;
+  position: relative;
+  top: -6px;
 }
 
 .trust-heading {
@@ -81,6 +99,7 @@
   font-size: 13.5px;
   color: #555;
   margin-bottom: 8px;
+  line-height: 1.7;
 }
 
 .trust-name {
@@ -88,90 +107,220 @@
   color: #888;
 }
 
-/* forms Card */
+/* ===== RIGHT FORM CARD ===== */
 .owner-right {
   background: #fff;
   padding: 30px;
   text-align: left;
 }
 
-/* form styled!*/
 .owner-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.form-row {
-  display: flex;
-  gap: 14px;
+/* ===== CITY DROPDOWN ===== */
+.city-dropdown {
+  width: 60%;
+  margin: 0 auto;
+  position: relative;
 }
 
-.form-row input,
-.form-row select {
-  flex: 1;
-  padding: 10px;
+.dropdown-header {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 12px 14px;
+  background: #fff;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 44px;
+  transition: border-color 0.2s ease;
+}
+
+.dropdown-header:hover {
+  border-color: #009587;
+}
+
+.arrow-icon {
+  font-size: 16px;
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 100%;
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  padding: 6px 0;
 }
 
-.whatsapp {
-  font-size: 14px;
-}
-
-.green {
-  color: #009587;
-  font-weight: 600;
-}
-
-/*all buttons*/
-.property-type,
-.ad-type {
-  margin-top: 10px;
-}
-
-.property-type h4,
-.ad-type h4 {
-  font-size: 15px;
-  color: #333;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.btn-group {
+.dropdown-row {
   display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.dropdown-row:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #444;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: #f6f6f6;
+  color: #009587;
+}
+
+/* ===== "New" Badge ===== */
+.new-badge {
+  background: #ff5a5f;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-left: 6px;
+}
+
+/* ===== WHATSAPP ROW ===== */
+.whatsapp-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.wa-logo {
+  color: #25d366;
+  font-weight: 600;
+}
+
+/* ===== SWITCH ===== */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #25d366;
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+/* ===== CENTER HEADINGS + BUTTONS ===== */
+.center-heading {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #222;
+}
+
+.property-group,
+.ad-group {
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
 }
 
+/* ===== BUTTON STYLING ===== */
 .btn-group button {
-  background: #f3f3f3;
-  border: 1px solid #ccc;
+  background: #fff;
+  border: 1px solid #d9d9d9;
   border-radius: 4px;
-  padding: 8px 16px;
+  padding: 10px 22px;
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.2s ease;
+  color: #444;
+  font-weight: 500;
+  transition: all 0.25s ease;
 }
 
-.btn-group button.active,
 .btn-group button:hover {
-  background: #009587;
-  color: white;
   border-color: #009587;
+  color: #009587;
+  background: #f5fefd;
 }
 
+.btn-group button.active {
+  background-color: #009587;
+  border-color: #009587;
+  color: #fff;
+  font-weight: 600;
+}
 
+.btn-group button:active {
+  transform: scale(0.98);
+}
+
+/* ===== SUBMIT BUTTON ===== */
 .submit-btn {
   background: #ff5a60;
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 14px 0;
+  border-radius: 4px;
+  padding: 13px 0;
   font-size: 16px;
   font-weight: 600;
   margin-top: 10px;
+  width: 100%;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -180,6 +329,7 @@
   background-color: #e34b51;
 }
 
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .owner-container {
     grid-template-columns: 1fr;
@@ -187,9 +337,7 @@
     padding: 0 20px;
   }
 
-  .owner-left,
-  .owner-right {
+  .city-dropdown {
     width: 100%;
   }
 }
-

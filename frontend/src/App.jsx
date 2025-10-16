@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import OwnerForm from "./components/OwnerForm";
-
+import PropertyDetails from "./components/PropertyDetails";
 function App() {
   return (
     <Router>
@@ -15,6 +15,7 @@ function App() {
         <Route path="/commercial" element={<h1>Commercial Page</h1>} />
         <Route path="/login" element={<h1></h1>} />
         <Route path="/signup" element={<h1></h1>} />
+         <Route path="/property-details" element={<PropertyDetails />} />
       </Routes>
     </Router>
   );
