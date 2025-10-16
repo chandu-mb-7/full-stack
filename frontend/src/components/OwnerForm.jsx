@@ -13,9 +13,9 @@ const OwnerForm = () => {
           <div className="owner-left">
             <h4>Why Post through us?</h4>
             <ul>
-              <li>🏠 Zero Brokerage</li>
-              <li>⚡ Faster Tenants</li>
-              <li>🔗 10 lac tenants/buyers connections</li>
+              <li>Zero Brokerage</li>
+              <li>Faster Tenants</li>
+              <li>10 lac tenants/buyers connections</li>
             </ul>
 
             <p className="trust-heading">30 Lac+ Home Owners Trust Us</p>

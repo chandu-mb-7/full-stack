@@ -1,46 +1,63 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import "./Navbar.css";
+import { Link } from "react-router-dom";
 import { FaCreditCard } from "react-icons/fa";
 import logo from "../assets/nb_logo.svg";
 import NavbarMenu from "./NavbarMenu";
+import LoginModal from "./LoginModal";
+import "./Navbar.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const isOwnerPage = location.pathname === "/owner";
-
-  const handleOwnerClick = () => {
-    if (isOwnerPage) {
-      navigate("/"); // Go back to home
-    } else {
-      navigate("/owner"); // Go to owner form
-    }
-  };
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [signupOpen, setSignupOpen] = useState(false);
 
   return (
     <>
       <header className="nb-header">
         <div className="nb-inner">
+  
           <Link to="/" className="nb-logo">
             <img src={logo} alt="NoBroker Logo" className="nb-logo-img" />
           </Link>
 
+          {/* Right Section */}
           <div className="nb-right">
             <button className="pay-btn">
               <FaCreditCard className="icon" /> Pay Rent
             </button>
 
-            <button className="owner-btn" onClick={handleOwnerClick}>
-              {isOwnerPage ? "Post Your Property" : "For Property Owners"}
-            </button>
+           <button
+  className="owner-btn"
+  onClick={() => (window.location.href = "/owner")}
+>
+  For Property owners
+</button>
+
 
             <div className="divider"></div>
-            <Link to="/signup" className="auth-link">Sign up</Link>
+
+            <span
+              className="auth-link"
+              onClick={() => {
+                console.log("Signup clicked");
+                setSignupOpen(false);
+              }}
+            >
+              Sign up
+            </span>
+
             <div className="divider"></div>
-            <Link to="/login" className="auth-link">Log in</Link>
+
+            <span
+              className="auth-link"
+              onClick={() => {
+                console.log("Login clicked");
+                setLoginOpen(true);
+              }}
+            >
+              Log in
+            </span>
+
             <div className="divider"></div>
 
             <div className="menu" onClick={() => setMenuOpen(true)}>
@@ -51,7 +68,12 @@ const Navbar = () => {
         </div>
       </header>
 
+
       <NavbarMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+
+
+      <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
+      <LoginModal isOpen={signupOpen} onClose={() => setSignupOpen(false)} />
     </>
   );
 };
