@@ -5,6 +5,8 @@ import logo from "../assets/nb_logo.svg";
 import NavbarMenu from "./NavbarMenu";
 import LoginModal from "./LoginModal";
 import "./Navbar.css";
+import { FaBars } from "react-icons/fa";
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -62,7 +64,8 @@ const Navbar = () => {
 
             <div className="menu" onClick={() => setMenuOpen(true)}>
               <span>Menu</span>
-              <span className="bars">☰</span>
+          <FaBars className="bars" />
+
             </div>
           </div>
         </div>
