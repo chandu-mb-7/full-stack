@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import { FaCreditCard } from "react-icons/fa";
 import logo from "../assets/nb_logo.svg";
@@ -7,12 +7,23 @@ import NavbarMenu from "./NavbarMenu";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isOwnerPage = location.pathname === "/owner";
+
+  const handleOwnerClick = () => {
+    if (isOwnerPage) {
+      navigate("/"); // Go back to home
+    } else {
+      navigate("/owner"); // Go to owner form
+    }
+  };
 
   return (
     <>
       <header className="nb-header">
         <div className="nb-inner">
-   
           <Link to="/" className="nb-logo">
             <img src={logo} alt="NoBroker Logo" className="nb-logo-img" />
           </Link>
@@ -21,7 +32,10 @@ const Navbar = () => {
             <button className="pay-btn">
               <FaCreditCard className="icon" /> Pay Rent
             </button>
-            <button className="owner-btn">For Property owners</button>
+
+            <button className="owner-btn" onClick={handleOwnerClick}>
+              {isOwnerPage ? "Post Your Property" : "For Property Owners"}
+            </button>
 
             <div className="divider"></div>
             <Link to="/signup" className="auth-link">Sign up</Link>
@@ -38,7 +52,6 @@ const Navbar = () => {
       </header>
 
       <NavbarMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
-
     </>
   );
 };

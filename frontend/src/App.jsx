@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./components/Navbar";
+import OwnerForm from "./components/OwnerForm";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/commercial" element={<h1>Commercial Page</h1>} />
         <Route path="/login" element={<h1>Login Page</h1>} />
         <Route path="/signup" element={<h1>Signup Page</h1>} />
+        <Route path="/owner" element={<OwnerForm />} /> {/* ✅ new route */}
       </Routes>
     </Router>
   );

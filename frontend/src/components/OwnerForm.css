@@ -1,0 +1,195 @@
+
+.owner-page {
+  width: 100%;
+  background: #fff;
+  padding-top: 100px; 
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 30px;
+}
+
+.owner-wrapper {
+  width: 120%;
+  display: flex;
+  justify-content: center;
+}
+
+.owner-container {
+  display: grid;
+  grid-template-columns: 0.9fr 1.7fr; 
+  gap: 36px;
+  max-width: 1300px;                 
+  margin: 0 auto;
+  padding: 0px 30px;                    
+  align-items: start;
+  box-sizing: border-box;
+}
+
+
+/*that sliding left right*/
+.owner-left,
+.owner-right {
+  width: 100%;
+  min-height: 440px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/*Info Card */
+.owner-left {
+  background: #fafafa;
+  padding: 28px 24px;
+  text-align: left;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.owner-left h4 {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.owner-left ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+.owner-left ul li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trust-heading {
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.trust-para {
+  font-size: 13.5px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.trust-name {
+  font-size: 13px;
+  color: #888;
+}
+
+/* forms Card */
+.owner-right {
+  background: #fff;
+  padding: 30px;
+  text-align: left;
+}
+
+/* form styled!*/
+.owner-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.form-row input,
+.form-row select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.whatsapp {
+  font-size: 14px;
+}
+
+.green {
+  color: #009587;
+  font-weight: 600;
+}
+
+/*all buttons*/
+.property-type,
+.ad-type {
+  margin-top: 10px;
+}
+
+.property-type h4,
+.ad-type h4 {
+  font-size: 15px;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-group button {
+  background: #f3f3f3;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.btn-group button.active,
+.btn-group button:hover {
+  background: #009587;
+  color: white;
+  border-color: #009587;
+}
+
+
+.submit-btn {
+  background: #ff5a60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #e34b51;
+}
+
+@media (max-width: 1024px) {
+  .owner-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .owner-left,
+  .owner-right {
+    width: 100%;
+  }
+}
+
