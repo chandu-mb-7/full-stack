@@ -114,3 +114,11 @@
 body {
   padding-top: 60px;
 }
+/* Active state for "Post Your Property" */
+.owner-btn.owner-active {
+  background-color: #009587;
+}
+
+.owner-btn.owner-active:hover {
+  background-color: #009587;
+}
