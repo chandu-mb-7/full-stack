@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .nb-header {
@@ -93,7 +93,7 @@
 }
 
 .auth-link:hover {
-  color: #ff5a5f;
+  color: #0c0c0c;
 }
 
 .menu {
@@ -111,10 +111,58 @@
   font-weight: 400;
 }
 
+.user-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.user-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nbcash-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  margin-right: 6px;
+}
+
+.nb-cash-icon {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.nb-cash-icon:hover {
+  transform: scale(1.08);
+}
+
+.nbcash-badge {
+  position: absolute;
+  top: -10px;
+  right: -14px;
+  background-color: #009587;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 1px 5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
 body {
   padding-top: 60px;
 }
-/* Active state for "Post Your Property" */
+
+
 .owner-btn.owner-active {
   background-color: #009587;
 }

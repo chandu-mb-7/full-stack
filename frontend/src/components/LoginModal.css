@@ -8,8 +8,13 @@
   justify-content: center;
   z-index: 3000;
   font-family: "Inter", sans-serif;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 .login-box {
   display: flex;
@@ -18,6 +23,14 @@
   background: #fff;
   border: none;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  position: relative;
+  border-radius: 6px;
+  animation: slideUp 0.3s ease-in-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .close-btn {
@@ -28,7 +41,6 @@
   border: none;
   cursor: pointer;
 }
-
 
 .login-left {
   flex: 1;
@@ -70,7 +82,6 @@
   color: #28a745;
 }
 
-
 .login-right {
   flex: 1.2;
   padding: 70px 50px;
@@ -92,6 +103,7 @@
   border: 1px solid #ccc;
   height: 52px;
   transition: border 0.2s;
+  border-radius: 4px;
 }
 
 .login-input-group:focus-within {
@@ -103,11 +115,6 @@
   align-items: center;
   padding: 0 8px;
   gap: 6px;
-}
-
-.map-icon {
-  width: 15px;
-  opacity: 0.7;
 }
 
 .flag-icon {
@@ -134,18 +141,15 @@
   background: #fff;
   color: #000;
 }
-
-.otp-input {
-  border: 1px solid #ccc;
-  height: 52px;
-  margin-bottom: 20px;
-}
-
-
 .whatsapp-toggle-row {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
   display: flex;
+  border: 1px solid #ccc;
+  justify-content: space-between;
   align-items: center;
-  margin: 20px 0 35px;
+  border-radius: 4px;
 }
 
 .switch {
@@ -153,7 +157,6 @@
   display: inline-block;
   width: 44px;
   height: 22px;
-  margin-right: 10px;
 }
 
 .switch input {
@@ -204,7 +207,6 @@ input:checked + .slider:before {
   font-weight: 600;
 }
 
-
 .continue-btn {
   width: 100%;
   background: #ff4d58;
@@ -214,62 +216,83 @@ input:checked + .slider:before {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  margin-bottom: 28px;
+  margin-top: 25px;
+  border-radius: 3px;
 }
 
 .continue-btn:hover {
   background: #e13e49;
 }
 
-
-.terms-text {
-  text-align: center;
-  font-size: 12px;
-  color: #666;
+.phone-display-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-.link {
-  color: #ff4d58;
+.change-phone {
+  color: #007bff;
   cursor: pointer;
+  font-size: 14px;
 }
 
-
-.info-text {
-  font-size: 13px;
-  color: #007b00;
-  text-align: center;
-  margin-top: 10px;
-}  
-
-/*////////////////////////   jwt   ///////////////////////////*/
+.change-phone:hover {
+  text-decoration: underline;
+}
 
 .otp-container {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 18px;
   margin-top: 1rem;
 }
 
 .otp-underline {
-  width: 40px;
-  font-size: 22px;
+  width: 42px;
+  height: 50px;
   text-align: center;
+  font-size: 26px;
+  font-weight: 600;
   border: none;
-  border-bottom: 2px solid #000;
   outline: none;
   background: transparent;
-  padding-bottom: 5px;
-  color: #0c0c0c;      
-  
-  font-weight: 600;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+  transition: border-color 0.2s ease;
 }
 
 .otp-underline:focus {
-  border-bottom-color: #c8bed4;
+  border-bottom: 2px solid #ff4d58;
 }
 
 .otp-underline::placeholder {
-  color: rgba(0, 0, 0, 0.3); 
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.otp-timer-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+  margin-right: 24px;
+}
+
+.otp-timer-text {
+  font-size: 13px;
+  color: #999;
+  font-weight: 500;
+}
+
+.resend-link {
+  font-size: 13px;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.resend-link:hover {
+  text-decoration: underline;
 }
 
 
@@ -289,50 +312,20 @@ input:checked + .slider:before {
   color: #555;
   margin-bottom: 1.5rem;
 }
- 
 
 
+@media (max-width: 768px) {
+  .login-box {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+  }
 
-.container.border-box {
-  border: 1px solid #ccc; /* Outer border */
-  border-radius: 8px;
-  padding: 12px;
-  width: 300px; /* adjust as needed */
-  background-color: #fff;
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    padding: 40px 25px;
+  }
 }
-
-.mobile-input {
-  width: 100%;
-  padding: 10px;
-
-  border: 0px ;  
-  outline: none;
-  font-size: 16px;
-}
-.input {
-  width: 100%;
-  padding: 10px;
-margin-bottom: 7px;
-  border: 1px solid black;  
-  outline: 1px;
-  font-size: 16px;
-   color: #000;  
-  background-color:#fff;
-}
-
-
-
-.whatsapp-toggle-row {
-  margin-top: 0px;
-   width: 100%;
-  padding: 10px;
-  display: flex;
-  border-top: none; 
-    border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  justify-content: space-between;
-  align-items: center;
-}
-
-

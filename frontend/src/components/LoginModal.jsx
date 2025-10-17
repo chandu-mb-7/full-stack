@@ -1,11 +1,10 @@
-
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LoginModal.css";
 import { IoClose } from "react-icons/io5";
 import signupHome from "../assets/signupHome.png";
 
 const LoginModal = ({ isOpen, onClose }) => {
+
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
@@ -14,8 +13,18 @@ const LoginModal = ({ isOpen, onClose }) => {
   const [whatsapp, setWhatsapp] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [timer, setTimer] = useState(30);
+
+  useEffect(() => {
+    let interval;
+    if (step === 2 && timer > 0) {
+      interval = setInterval(() => setTimer((t) => t - 1), 1000);
+    }
+    return () => clearInterval(interval);
+  }, [step, timer]);
 
   if (!isOpen) return null;
+
 
   const sendOTP = async () => {
     try {
@@ -29,6 +38,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       if (res.ok) {
         setStep(2);
         setMessage("OTP sent successfully!");
+        setTimer(30);
       } else {
         setMessage(data.error || "Error sending OTP");
       }
@@ -51,7 +61,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       if (res.ok) {
         localStorage.setItem("authToken", data.token);
         setMessage("OTP verified successfully!");
-        setStep(3); // Move to name/email step
+        setStep(3);
       } else {
         setMessage(data.error || "Invalid OTP");
       }
@@ -61,41 +71,33 @@ const LoginModal = ({ isOpen, onClose }) => {
     }
   };
 
-  
-
-
-  //name ==> Nav
-
   const saveUserInfo = async () => {
-  try {
-    const token = localStorage.getItem("authToken");
-    const res = await fetch("http://localhost:5000/api/user/save-user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ name, email }),
-    });
-    const data = await res.json();
+    try {
+      const token = localStorage.getItem("authToken");
+      const res = await fetch("http://localhost:5000/api/user/save-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name, email }),
+      });
+      const data = await res.json();
 
-    if (res.ok) {
-      //  Save  in localStorage so Navbar can access
-      const userData = { name, phone };
-      localStorage.setItem("user", JSON.stringify(userData));
-
-      setMessage("User saved successfully!");
-      setStep(4);   // Move to success page
-      onClose();     // Close modal
-    } else {
-      setMessage(data.error || "Error saving info");
+      if (res.ok) {
+        const userData = { name, phone };
+        localStorage.setItem("user", JSON.stringify(userData));
+        setMessage("User saved successfully!");
+        setStep(4);
+        onClose();
+      } else {
+        setMessage(data.error || "Error saving info");
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage("Error saving info");
     }
-  } catch (err) {
-    console.error(err);
-    setMessage("Error saving info");
-  }
-};
-
+  };
 
   const handleClose = () => {
     setPhone("");
@@ -103,7 +105,12 @@ const LoginModal = ({ isOpen, onClose }) => {
     setName("");
     setEmail("");
     setStep(1);
+    setTimer(30);
     onClose();
+  };
+
+  const handleResend = () => {
+    sendOTP();
   };
 
   return (
@@ -113,6 +120,7 @@ const LoginModal = ({ isOpen, onClose }) => {
           <IoClose size={22} />
         </button>
 
+        {/* Left section */}
         <div className="login-left">
           <img src={signupHome} alt="House" className="login-left-img" />
           <h3 className="login-left-title">Login/Sign up</h3>
@@ -123,16 +131,13 @@ const LoginModal = ({ isOpen, onClose }) => {
           </ul>
         </div>
 
+        {/* Right section */}
         <div className="login-right">
-          {/* Step 1: Phone Input */}
-          {(step === 1 || step === 2) && (
+         
+          {step === 1 && (
             <>
-              <h4 className="login-heading">
-                {step === 1 ? "Enter phone to continue" : "Verify your OTP"}
-              </h4>
-
+              <h4 className="login-heading">Enter phone to continue</h4>
               <div className="login-input-group">
-                
                 <div className="country-container">
                   <img
                     src="https://flagcdn.com/w20/in.png"
@@ -143,7 +148,6 @@ const LoginModal = ({ isOpen, onClose }) => {
                     className="country-code-dropdown"
                     value={countryCode}
                     onChange={(e) => setCountryCode(e.target.value)}
-                    disabled={step === 2}
                   >
                     <option value="+91">+91</option>
                     <option value="+1">+1</option>
@@ -151,14 +155,12 @@ const LoginModal = ({ isOpen, onClose }) => {
                     <option value="+61">+61</option>
                   </select>
                 </div>
-
                 <input
                   type="tel"
-                  className="mobile-input "
+                  className="mobile-input"
                   placeholder="Enter Mobile Number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  disabled={step === 2}
                 />
               </div>
 
@@ -171,105 +173,91 @@ const LoginModal = ({ isOpen, onClose }) => {
                     type="checkbox"
                     checked={whatsapp}
                     onChange={() => setWhatsapp(!whatsapp)}
-                    disabled={step === 2}
                   />
                   <span className="slider round"></span>
                 </label>
               </div>
 
-              {/* OTP BELOW WHATSAPP */}
-              {step === 2 && (
-                <div className="otp-container">
-                  {[0, 1, 2, 3].map((index) => (
-                    <input
-                      key={index}
-                      type="number"
-                      maxLength="10"
-                      className="otp-underline"
-                      id={`otp-${index}`}
-                      onChange={(e) => {
-                        if (/^\d$/.test(e.target.value)) {
-                          const newOtp = otp.split("");
-                          newOtp[index] = e.target.value;
-                          setOtp(newOtp.join(""));
-                          const next = document.getElementById(`otp-${index + 1}`);
-                          next && next.focus();
-                        }
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
-
-              <br/><br/>
-
-              <button
-                className="continue-btn"
-                onClick={step === 1 ? sendOTP : verifyOTP}
-              >
-                {step === 1 ? "Continue" : "Verify OTP"}
+              <button className="continue-btn" onClick={sendOTP}>
+                Continue
               </button>
-
               {message && <p className="info-text">{message}</p>}
-              {step === 1 && (
-                <p className="terms-text">
-                  By continuing, you agree to our{" "}
-                  <span className="link">Terms & Conditions</span>
-                </p>
-              )}
             </>
           )}
 
-          {/* Step 3: Name + Email */}
+          {step === 2 && (
+            <>
+              <h4 className="login-heading">Verify your OTP</h4>
+              <div className="phone-display-row">
+                <span className="phone-text">
+                  {countryCode} {phone}
+                </span>
+                <span className="change-phone" onClick={() => setStep(1)}>
+                  Change Phone
+                </span>
+              </div>
+
+              {/* OTP inputs */}
+              <div className="otp-container">
+                {[0, 1, 2, 3].map((index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength="1"
+                    className="otp-underline"
+                    id={`otp-${index}`}
+                    value={otp[index] || ""}
+                    placeholder="_"
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/[^0-9]/g, "");
+                      if (value) {
+                        const newOtp = otp.split("");
+                        newOtp[index] = value;
+                        setOtp(newOtp.join(""));
+                        const next = document.getElementById(`otp-${index + 1}`);
+                        next && next.focus();
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Backspace") {
+                        if (otp[index]) {
+                          const newOtp = otp.split("");
+                          newOtp[index] = "";
+                          setOtp(newOtp.join(""));
+                        } else if (index > 0) {
+                          const prev = document.getElementById(`otp-${index - 1}`);
+                          prev && prev.focus();
+                        }
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+
+              <div className="otp-timer-row">
+                {timer > 0 ? (
+                  <span className="otp-timer-text">
+                    00:{timer < 10 ? "0" + timer : timer}
+                  </span>
+                ) : (
+                  <span className="resend-link" onClick={handleResend}>
+                    Resend OTP
+                  </span>
+                )}
+              </div>
+
+              <button className="continue-btn" onClick={verifyOTP}>
+                Verify OTP
+              </button>
+              {message && <p className="info-text">{message}</p>}
+            </>
+          )}
+
           {step === 3 && (
             <>
               <h4 className="login-heading">Provide your name and email</h4>
-      <div className="login-input-group">
-                
-                <div className="country-container">
-                  <img
-                    src="https://flagcdn.com/w20/in.png"
-                    alt="flag"
-                    className="flag-icon"
-                  />
-                  <select
-                    className="country-code-dropdown"
-                    value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
-                    disabled={step === 2}
-                  >
-                    <option value="+91">+91</option>
-                    <option value="+1">+1</option>
-                    <option value="+44">+44</option>
-                    <option value="+61">+61</option>
-                  </select>
-                </div>
-
-                <input
-                  type="tel"
-                  className="mobile-input "
-                  placeholder="Enter Mobile Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  disabled={step === 2}
-                />
-              </div>
-
-              <div className="whatsapp-toggle-row">
-                <span className="whatsapp-label">
-                  Get updates on <span className="wa-text">WhatsApp</span>
-                </span>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={whatsapp}
-                    onChange={() => setWhatsapp(!whatsapp)}
-                    disabled={step === 2}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </div>
-
               <input
                 type="text"
                 className="input mb-1"
@@ -291,7 +279,6 @@ const LoginModal = ({ isOpen, onClose }) => {
             </>
           )}
 
-          {/* Step 4: Success Page */}
           {step === 4 && (
             <div className="success-page">
               <h3 className="success-title">🎉 Login Successful!</h3>
