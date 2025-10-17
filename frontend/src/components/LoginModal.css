@@ -241,4 +241,98 @@ input:checked + .slider:before {
   margin-top: 10px;
 }  
 
+/*////////////////////////   jwt   ///////////////////////////*/
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+.otp-underline {
+  width: 40px;
+  font-size: 22px;
+  text-align: center;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+  background: transparent;
+  padding-bottom: 5px;
+  color: #0c0c0c;      
+  
+  font-weight: 600;
+}
+
+.otp-underline:focus {
+  border-bottom-color: #c8bed4;
+}
+
+.otp-underline::placeholder {
+  color: rgba(0, 0, 0, 0.3); 
+}
+
+
+.success-page {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.success-title {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.success-message {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+ 
+
+
+
+.container.border-box {
+  border: 1px solid #ccc; /* Outer border */
+  border-radius: 8px;
+  padding: 12px;
+  width: 300px; /* adjust as needed */
+  background-color: #fff;
+}
+
+.mobile-input {
+  width: 100%;
+  padding: 10px;
+
+  border: 0px ;  
+  outline: none;
+  font-size: 16px;
+}
+.input {
+  width: 100%;
+  padding: 10px;
+margin-bottom: 7px;
+  border: 1px solid black;  
+  outline: 1px;
+  font-size: 16px;
+   color: #000;  
+  background-color:#fff;
+}
+
+
+
+.whatsapp-toggle-row {
+  margin-top: 0px;
+   width: 100%;
+  padding: 10px;
+  display: flex;
+  border-top: none; 
+    border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  justify-content: space-between;
+  align-items: center;
+}
+
 

@@ -13,6 +13,24 @@ const Navbar = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
 
+ 
+  //for storing name
+   const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
+
+  const refreshUser = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
+  };
+
+ const handleLogout = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("authToken");
+  setUser(null); // update Navbar state
+};
+
+
   return (
     <>
       <header className="nb-header">
@@ -38,27 +56,37 @@ const Navbar = () => {
 
             <div className="divider"></div>
 
-            <span
-              className="auth-link"
-              onClick={() => {
-                console.log("Signup clicked");
-                setSignupOpen(true);
-              }}
-            >
-              Sign up
-            </span>
+           
 
-            <div className="divider"></div>
 
-            <span
-              className="auth-link"
-              onClick={() => {
-                console.log("Login clicked");
-                setLoginOpen(true);
-              }}
-            >
-              Log in
-            </span>
+                {/* {user ? (
+  <span className="auth-link">{user.name}</span>
+) : (
+  <>
+    <span className="auth-link" onClick={() => setSignupOpen(true)}>Sign up</span>
+    <div className="divider"></div>
+    <span className="auth-link" onClick={() => setLoginOpen(true)}>Log in</span>
+  </>
+)} */}
+
+
+
+{user ? (
+  <>
+    <span className="auth-link">{user.name}</span>
+    <div className="divider"></div>
+    <span className="auth-link" onClick={handleLogout}>Logout</span>
+  </>
+) : (
+  <>
+    <span className="auth-link" onClick={() => setSignupOpen(true)}>Sign up</span>
+    <div className="divider"></div>
+    <span className="auth-link" onClick={() => setLoginOpen(true)}>Log in</span>
+  </>
+)}
+
+
+
 
             <div className="divider"></div>
 
@@ -75,8 +103,8 @@ const Navbar = () => {
       <NavbarMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
 
-      <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
-      <LoginModal isOpen={signupOpen} onClose={() => setSignupOpen(false)} />
+      <LoginModal isOpen={loginOpen} onClose={() => {setLoginOpen(false) ;refreshUser(); } } />
+      <LoginModal isOpen={signupOpen} onClose={() =>{ setSignupOpen(false);refreshUser();}} />
     </>
   );
 };
