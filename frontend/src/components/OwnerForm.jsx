@@ -11,7 +11,7 @@ const OwnerForm = () => {
   const [activeProperty, setActiveProperty] = useState("Residential");
   const [activeAdType, setActiveAdType] = useState("Rent");
   const dropdownRef = useRef(null);
-  const navigate = useNavigate(); // ✅ Correct place (top-level, before return)
+  const navigate = useNavigate(); 
 
   const cities = [
     ["Bangalore", "Mumbai"],
@@ -28,7 +28,6 @@ const OwnerForm = () => {
     setIsDropdownOpen(false);
   };
 
-  // ✅ Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -57,7 +56,6 @@ const OwnerForm = () => {
     }
   }, [activeProperty]);
 
-  // ✅ Handle Submit Navigation
   const handleSubmit = () => {
     if (selectedCity === "Select City") {
       alert("Please select a city first!");

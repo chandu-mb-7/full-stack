@@ -7,7 +7,7 @@
   font-family: "Inter", Arial, sans-serif;
 }
 
-/* ===== PAGE LAYOUT ===== */
+
 .property-container {
   display: flex;
   justify-content: center;
@@ -18,7 +18,6 @@
   width: 100%;
 }
 
-/* ===== SIDEBAR ===== */
 .property-sidebar {
   flex: 0.9;
   background: #fff;
@@ -74,7 +73,6 @@
   margin-bottom: 20px;
 }
 
-/* ===== FORM GRID ===== */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -121,7 +119,6 @@ input:focus {
   color: #555;
 }
 
-/* ===== PG ROOM GRID ===== */
 .room-grid {
   display: flex;
   justify-content: space-around;
@@ -203,7 +200,6 @@ input:focus {
   background: #e34b51;
 }
 
-/* ===== RIGHT SIDE ===== */
 .property-right {
   flex: 0.9;
   background: #fff;
@@ -263,7 +259,6 @@ input:focus {
   font-size: 14px;
   color: #444;
 }
-/* ===== Sidebar (NoBroker Style) ===== */
 .sidebar-menu {
   list-style: none;
   padding: 0;
@@ -300,7 +295,6 @@ input:focus {
 .sidebar-menu li.active .side-icon {
   color: #00a885;
 }
-/* ===== Right Sidebar Feature List (React Icons) ===== */
 .feature-list {
   list-style: none;
   padding: 0;

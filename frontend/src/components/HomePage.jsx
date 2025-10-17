@@ -9,7 +9,7 @@ const HomePage = () => {
   const [selectedCity, setSelectedCity] = useState("Bangalore");
   const navigate = useNavigate();
 
-  // ✅ Combined cards with left and right icons
+
   const topCards =
     activeTab === "buy"
       ? [
@@ -27,7 +27,7 @@ const HomePage = () => {
           },
         ];
 
-  // Handle top-card click
+
   const handleActionClick = (text) => {
     if (text.includes("Rental Agreement")) {
       navigate("/rental-agreement");
@@ -36,12 +36,11 @@ const HomePage = () => {
 
   return (
     <div className="home-container">
-      {/* === HERO TITLE === */}
+
       <h1 className="hero-title">
         World's Largest <span className="nobroker">NoBrokerage</span> Property Site
       </h1>
 
-      {/* === TOP BUTTON SECTION === */}
       <div className="action-buttons">
         {topCards.map((item, idx) => (
           <div
@@ -49,22 +48,18 @@ const HomePage = () => {
             className="action-btn"
             onClick={() => handleActionClick(item.text)}
           >
-            {/* Left Icon */}
             <img src={item.leftImg} alt="left icon" className="mini-icon" />
 
-            {/* Text */}
             <span className="btn-text">
               {item.text.split("|")[0].trim()}{" "}
               <span className="faded-text">| {item.text.split("|")[1].trim()}</span>
             </span>
 
-            {/* Right Icon */}
             <img src={item.rightImg} alt="right icon" className="mini-icon" />
           </div>
         ))}
       </div>
 
-      {/* === TABS SECTION === */}
       <div className="tabs">
         {["buy", "rent", "commercial"].map((tab) => (
           <button
@@ -77,7 +72,6 @@ const HomePage = () => {
         ))}
       </div>
 
-      {/* === SEARCH SECTION === */}
       <div className="search-wrapper">
         {activeTab === "buy" ? (
           <div className="search-card centered">
@@ -171,7 +165,6 @@ const HomePage = () => {
         )}
       </div>
 
-      {/* === OWNER SECTION === */}
       <div className="owner-section">
   <p>Are you a Property Owner?</p>
   <button
@@ -183,7 +176,6 @@ const HomePage = () => {
 </div>
 
 
-      {/* === BLUE STRIP === */}
       <div className="blue-strip">
         <p>
           Do you know how much loan you can get? Get maximum with <b>NoBroker</b>

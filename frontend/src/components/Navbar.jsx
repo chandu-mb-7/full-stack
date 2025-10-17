@@ -45,34 +45,31 @@ const Navbar = () => {
     }
   };
 
-  // ✅ Handle City Change
+  // Handle City Change
   const handleCityChange = (e) => {
     const selectedCity = e.target.value;
     localStorage.setItem("selectedCity", selectedCity);
-    window.dispatchEvent(new Event("storage")); // notify rental page
+    window.dispatchEvent(new Event("storage")); 
   };
 
   return (
     <>
       <header className="nb-header">
         <div className="nb-inner">
-          {/* ===== LEFT SECTION ===== */}
+       
           <div className="nb-left">
             <Link to="/" className="nb-logo">
               <img src={logo} alt="NoBroker Logo" className="nb-logo-img" />
             </Link>
 
-            {/* Show Legal Services text only on rental page */}
             {isRentalPage && (
               <span className="legal-services">Legal Services</span>
             )}
           </div>
 
-          {/* ===== RIGHT SECTION ===== */}
           <div className="nb-right">
             {isRentalPage ? (
               <>
-                {/* ✅ City Dropdown FIRST (Left of My Bookings) */}
                 <select
                   className="city-dropdown-right"
                   onChange={handleCityChange}
@@ -95,12 +92,10 @@ const Navbar = () => {
 
                 <div className="divider"></div>
 
-                {/* === My Bookings === */}
                 <button className="my-bookings-btn">My Bookings</button>
 
                 <div className="divider"></div>
 
-                {/* === Logged User === */}
                 {user && (
                   <div className="user-display">
                     <img
@@ -114,7 +109,6 @@ const Navbar = () => {
 
                 <div className="divider"></div>
 
-                {/* === Menu === */}
                 <div className="menu" onClick={() => setMenuOpen(true)}>
                   <span>Menu</span>
                   <FaBars className="bars" />
@@ -122,7 +116,6 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                {/* === Default Home / Other Pages === */}
                 <button className="pay-btn">
                   <FaCreditCard className="icon" /> Pay Rent
                 </button>
@@ -195,14 +188,10 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-
-      {/* Blue strip below navbar for rental page */}
       {isRentalPage && <div className="navbar-blue-strip"></div>}
 
-      {/* Navbar Menu Drawer */}
       <NavbarMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
-      {/* Login / Signup Modals */}
       <LoginModal
         isOpen={loginOpen}
         onClose={() => {

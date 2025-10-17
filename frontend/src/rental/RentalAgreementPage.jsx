@@ -24,7 +24,6 @@ const RentalAgreementPage = () => {
   const [selectedCity, setSelectedCity] = useState(storedCity || "");
   const [showCityModal, setShowCityModal] = useState(false);
 
-  // 🔹 Show modal 1 second after entering page
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowCityModal(true);
@@ -32,14 +31,12 @@ const RentalAgreementPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // 🔹 When user selects a city from modal
   const handleCitySelect = (city) => {
     setSelectedCity(city);
     localStorage.setItem("selectedCity", city);
     setShowCityModal(false);
   };
 
-  // 🔹 Listen for city change from Navbar dropdown
   useEffect(() => {
     const handleStorageChange = () => {
       const city = localStorage.getItem("selectedCity") || "";
@@ -51,14 +48,13 @@ const RentalAgreementPage = () => {
 
   return (
     <div className="rental-page-container">
-      {/* === City Selector Modal === */}
+      
       <CitySelectorModal
         isOpen={showCityModal}
         onClose={() => setShowCityModal(false)}
         onCitySelect={handleCitySelect}
       />
 
-      {/* === MAIN BLUE SECTION === */}
       <section className="rental-blue-section">
         <div className="rental-content-wrapper">
           <div className="rental-header">
@@ -129,7 +125,6 @@ const RentalAgreementPage = () => {
         </div>
       </section>
 
-      {/* === INFO BAR === */}
       <div className="rental-info-section">
         <div className="rental-info-bar">
           <span>🏛 Maharashtra Govt. Registered</span>
@@ -138,7 +133,6 @@ const RentalAgreementPage = () => {
         </div>
       </div>
 
-      {/* === ADDONS SECTION === */}
       <section className="addons-wrapper">
         <div className="addons-card">
           <h2>Available Add ons</h2>
@@ -176,7 +170,6 @@ const RentalAgreementPage = () => {
         </div>
       </section>
 
-      {/* === HOW IT WORKS === */}
       <section className="how-it-works-wrapper">
         <div className="how-card">
           <h2>How it works</h2>
@@ -214,7 +207,6 @@ const RentalAgreementPage = () => {
         </div>
       </section>
 
-      {/* === COMPARE AGREEMENT SECTION === */}
       <section className="compare-agreement-wrapper">
         <div className="compare-card">
           <h2>Select to Compare Agreement</h2>
@@ -255,7 +247,6 @@ const RentalAgreementPage = () => {
         </div>
       </section>
 
-      {/* === DISCOUNT COUPONS === */}
       <section className="discount-wrapper">
         <div className="discount-card">
           <h2>Discount Coupons</h2>
@@ -279,7 +270,6 @@ const RentalAgreementPage = () => {
         </div>
       </section>
 
-      {/* === NOBROKER PROMISE === */}
       <section className="promise-wrapper">
         <div className="promise-card">
           <div className="promise-content">

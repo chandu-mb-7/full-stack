@@ -263,7 +263,7 @@ body {
   margin-left: 8px;
   font-size: 15px;
 }
-/* Right-side dropdown beside My Bookings */
+
 .city-dropdown-right {
   margin-right: 10px;
   padding: 6px 12px;
@@ -274,7 +274,7 @@ body {
   cursor: pointer;
   height: 34px;
   background: #fff;
-  color: #2b3cb8; /* make 'Change City' blue like NoBroker */
+  color: #2b3cb8; 
   font-weight: 600;
   transition: all 0.2s ease;
 }

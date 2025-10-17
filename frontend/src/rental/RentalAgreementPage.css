@@ -615,7 +615,6 @@
     width: 100%;
   }
 }
-/* === NOBROKER PROMISE SECTION === */
 .promise-wrapper {
   background-color: #f8f8f8;
   padding: 70px 0;
@@ -673,7 +672,7 @@
 }
 
 .promise-title.blue {
-  color: #2e3192; /* NoBroker blue shade */
+  color: #2e3192; 
 }
 
 .promise-item p {
@@ -682,7 +681,6 @@
   line-height: 1.5;
 }
 
-/* RIGHT SIDE IMAGE */
 .promise-right {
   flex: 1;
   display: flex;
@@ -699,7 +697,6 @@
   object-fit: contain;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .promise-content {
     flex-direction: column-reverse;
@@ -715,14 +712,12 @@
     justify-content: center;
   }
 }
-/* Blur background when modal open */
 .blur-bg {
   filter: blur(4px);
   pointer-events: none;
   user-select: none;
 }
 
-/* Highlight selected city text */
 .city-highlight {
   color: #2b3cb8;
   font-weight: 700;
