@@ -16,6 +16,12 @@
   top: 0;
   left: 0;
   z-index: 2000;
+
+  margin-bottom: 0;
+  padding-bottom: 0;
+  /* optional, removes any faint border line */
+
+
 }
 
 .nb-inner {
@@ -24,7 +30,9 @@
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  padding: 0 20px;
+  padding:10px 20px 0 20px;;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .nb-logo-img {
@@ -60,21 +68,25 @@
 }
 
 .owner-btn {
-  background-color: #009587;
+  background-color: #00796b;      /* NoBroker green shade */
   color: #fff;
-  border: none;
-  border-radius: 3px;
-  padding: 7px 14px;
   font-weight: 600;
-  font-size: 14px;
-  height: 34px;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;             /* Controls height */
+  line-height: 1;                 /* Prevent text from sinking */
+  display: inline-flex;           /* Perfect vertical centering */
+  align-items: center;            /* Center text vertically */
+  justify-content: center;
   cursor: pointer;
+  font-size: 15px;
   transition: background 0.2s ease;
 }
 
 .owner-btn:hover {
-  background-color: #007c71;
+  background-color: #00695c;      /* Slightly darker on hover */
 }
+
 
 .divider {
   height: 20px;
@@ -289,4 +301,41 @@ body {
     margin-top: 8px;
     width: 100%;
   }
+}
+/* ===== Home Interiors Page ===== */
+.back-arrow {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  margin-right: 10px;
+}
+
+.back-arrow:hover {
+  color: #009587;
+}
+
+.page-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-left: 6px;
+}
+
+.contact-btn {
+  background-color: #fff;
+  color: #ff5a5f;
+  border: 1px solid #ff5a5f;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.contact-btn:hover {
+  background-color: #ff5a5f;
+  color: #fff;
 }

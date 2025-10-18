@@ -22,6 +22,7 @@ const Navbar = () => {
     location.pathname.includes("property");
 
   const isRentalPage = location.pathname.includes("rental-agreement");
+  const isInteriorsPage = location.pathname.includes("interiors");
 
   // Refresh user info
   const refreshUser = () => {
@@ -45,31 +46,67 @@ const Navbar = () => {
     }
   };
 
-  // Handle City Change
+  // Handle City Change (Rental Page)
   const handleCityChange = (e) => {
     const selectedCity = e.target.value;
     localStorage.setItem("selectedCity", selectedCity);
-    window.dispatchEvent(new Event("storage")); 
+    window.dispatchEvent(new Event("storage"));
+  };
+
+  // Handle back click (Interiors Page)
+  const handleBackClick = () => {
+    navigate("/");
   };
 
   return (
     <>
       <header className="nb-header">
         <div className="nb-inner">
-       
+          {/* ===== Left Section ===== */}
           <div className="nb-left">
+            {isInteriorsPage && (
+              <span className="back-arrow" onClick={handleBackClick}>
+                &lt;
+              </span>
+            )}
+
+            {/* === Logo (always same) === */}
             <Link to="/" className="nb-logo">
               <img src={logo} alt="NoBroker Logo" className="nb-logo-img" />
             </Link>
 
+            {/* === Page Titles === */}
             {isRentalPage && (
               <span className="legal-services">Legal Services</span>
             )}
+
+            {isInteriorsPage && (
+              <span className="page-title">Home Interiors</span>
+            )}
           </div>
 
+          {/* ===== Right Section ===== */}
           <div className="nb-right">
-            {isRentalPage ? (
+            {isInteriorsPage ? (
               <>
+                {/* ✅ Interiors Page — no Menu button */}
+                <button className="contact-btn">📞 +91 9001376403</button>
+                <div className="divider"></div>
+
+                {user && (
+                  <div className="user-display">
+                    <img
+                      src="https://assets.nobroker.in/nb-new/public/MaterialIcons/accountCircle.svg"
+                      alt="User Icon"
+                      className="user-icon"
+                    />
+                    <span className="auth-link">{user.name || "User"}</span>
+                  </div>
+                )}
+              </>
+            ) : isRentalPage ? (
+              <>
+                {/* === Rental Agreement Navbar === */}
                 <select
                   className="city-dropdown-right"
                   onChange={handleCityChange}
@@ -116,6 +153,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+                {/* === Default Home Navbar === */}
                 <button className="pay-btn">
                   <FaCreditCard className="icon" /> Pay Rent
                 </button>
@@ -188,8 +226,11 @@ const Navbar = () => {
           </div>
         </div>
       </header>
+
+      {/* === Blue strip for rental page only === */}
       {isRentalPage && <div className="navbar-blue-strip"></div>}
 
+      {/* === Menu & Modals === */}
       <NavbarMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <LoginModal

@@ -201,7 +201,7 @@ const HomePage = () => {
   const [selectedCity, setSelectedCity] = useState("Bangalore");
   const navigate = useNavigate();
 
-  const tabTopCards = {
+    const tabTopCards = {
     buy: [
       {
         leftImg: "src/assets/HomeInteriorHome.svg",
@@ -218,18 +218,22 @@ const HomePage = () => {
     ],
     commercial: [
       {
-        leftImg: "src/assets/commercial.svg",
+        leftImg: "src/assets/Rental.svg",
         rightImg: "src/assets/nextday.svg",
-        text: "Commercial Properties | Quick Deals",
+        text: "Rental Agreement | Next Day Delivery",
       },
     ],
   };
 
-  const handleActionClick = (text) => {
-    if (text.includes("Rental Agreement")) {
-      navigate("/rental-agreement");
-    }
-  };
+  // Handle top-card click
+const handleActionClick = (text) => {
+  if (text.includes("Rental Agreement")) {
+    navigate("/rental-agreement");
+  } else if (text.includes("Home Interiors")) {
+    navigate("/interiors");
+  }
+};
+
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
