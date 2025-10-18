@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29" height="29" viewBox="0 0 29 29">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_1633" data-name="Rectangle 1633" width="29" height="29" transform="translate(8821.369 1976.612)" fill="rgba(255,255,255,0)"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_56571" data-name="Rectangle 56571" width="25.892" height="17.776" transform="translate(0 0)" fill="none" stroke="#707070" stroke-width="1.2"/>
+    </clipPath>
+  </defs>
+  <g id="Group_183753" data-name="Group 183753" transform="translate(-8896.5 -2022.5)">
+    <g id="Mask_Group_183414" data-name="Mask Group 183414" transform="translate(75.131 45.888)" clip-path="url(#clip-path)">
+      <g id="Group_183751" data-name="Group 183751" transform="translate(8822.924 1982.224)">
+        <g id="Group_183750" data-name="Group 183750" clip-path="url(#clip-path-2)">
+          <line id="Line_743" data-name="Line 743" x1="2.402" transform="translate(0.022 14.386)" fill="none" stroke="#464646" stroke-width="1.2"/>
+          <path id="Path_154521" data-name="Path 154521" d="M.5,14.386V.5H16.122V14.386H7.234" fill="none" stroke="#464646" stroke-width="1.2"/>
+          <path id="Path_154522" data-name="Path 154522" d="M16.121,3.971h4.6a1.157,1.157,0,0,1,.956.5l1.97,3.545h.579a1.136,1.136,0,0,1,1.166,1.105,1.275,1.275,0,0,1-.009.175v3.927a1.157,1.157,0,0,1-1.157,1.157H23.069" fill="none" stroke="#464646" stroke-width="1.2"/>
+          <rect id="Rectangle_56570" data-name="Rectangle 56570" width="4.64" height="4.618" rx="2.309" transform="translate(18.424 12.658)" fill="none" stroke="#464646" stroke-width="1.2"/>
+          <path id="Path_154523" data-name="Path 154523" d="M6.989,14.385a2.274,2.274,0,0,1,.075.581h0a2.314,2.314,0,0,1-2.319,2.309h0a2.314,2.314,0,0,1-2.32-2.308h0a2.314,2.314,0,0,1,2.319-2.309h0a2.315,2.315,0,0,1,2.245,1.727" fill="none" stroke="#464646" stroke-width="1.2"/>
+          <line id="Line_744" data-name="Line 744" x2="2.314" transform="translate(16.121 14.386)" fill="none" stroke="#464646" stroke-width="1.2"/>
+          <path id="Path_154524" data-name="Path 154524" d="M17.278,8.6h4.05V8.022L19.656,5.539" fill="none" stroke="#464646" stroke-width="1.2"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

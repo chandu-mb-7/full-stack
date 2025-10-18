@@ -1,49 +1,47 @@
 
 
 
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css";
-
-// Components
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import OwnerForm from "./components/OwnerForm";
 import PropertyDetails from "./components/PropertyDetails";
+import HomePage from "./components/HomePage";
+import RentalAgreementPage from "./rental/RentalAgreementPage";
 import Service from "./components/service";        
 import RentService from "./components/RentService";
 import ServicePage from "./components/ServicePage";
 import RentPage from "./components/RentPage";     
-import LandingPage from "./components/LandingPage";
 
-function App() {
+
+function AppContent() {
+  const location = useLocation();
+
   return (
-    <Router>
-      <Navbar />
-
+    <>
+      <Navbar /> {/* Always visible */}
       <Routes>
-        {/* Home */}
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={ <><HomePage />  </>} />
+        
 
-        {/* Buy & Rent */}
-        <Route path="/buy" element={<Service/>} />
-        <Route path="/rent" element={<RentService />} />
-         <Route path="/commercial" element={<RentService/>} />
-
-        {/* Owner & Property */}
+        <Route path="/rental-agreement" element={<RentalAgreementPage />} />
         <Route path="/owner" element={<OwnerForm />} />
         <Route path="/property-details" element={<PropertyDetails />} />
-
-        {/* Generic service details */}
-        <Route path="/service-page" element={<ServicePage />} />
+         <Route path="/buy" element={<Service/>} />
+        <Route path="/rent" element={<RentService />} />
+         <Route path="/commercial" element={<RentService/>} />
+         <Route path="/service-page" element={<ServicePage />} />
         <Route path="/rent-page" element={<RentPage />} />
+        
 
-       
-        {/* login and singup */}
-        <Route path="/login" element={<h1>Login Page</h1>} />
-        <Route path="/signup" element={<h1>Signup Page</h1>} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}

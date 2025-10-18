@@ -1,11 +1,10 @@
 
-import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Service.css";
 import { useNavigate } from "react-router-dom";
 
 
-// --- Dynamic imports from src/assets ---
+
 //--------------BUY---------------------
 const builderImg = new URL("../assets/buy/builder.png", import.meta.url).href;
 const saleImg = new URL("../assets/buy/sale.png", import.meta.url).href;
@@ -42,14 +41,12 @@ const Service = () => {
     ].map((service, idx) => (
       
       <div className="col-6 col-md-2 text-center d-flex flex-column align-items-center" key={idx}>
-     <div
-      className="text-decoration-none"
-      style={{ cursor: "pointer" }}
-    onClick={() =>
-  window.open(`/service-page?msg=${encodeURIComponent(service.text)}`, "_blank")
-}
+     
 
-    >
+<div
+                style={{ cursor: "pointer" }}
+                onClick={() => openPage(service.link)}
+              >
       <img
         src={service.img}
         alt={service.text}
@@ -92,7 +89,7 @@ const Service = () => {
          <div
           style={{ cursor: "pointer" }}
           onClick={() =>
-            window.open(`/service-page?msg=${encodeURIComponent(feature.text)}`, "_blank")
+            window.open(`/service-page?msg=${encodeURIComponent(feature.text)}`)
           }
         > 
 

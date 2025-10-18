@@ -27,11 +27,10 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 30px;
-  align-items: stretch; /* ensures equal height */
+  align-items: stretch; 
   box-sizing: border-box;
 }
 
-/* ===== LEFT & RIGHT CARDS ===== */
 .owner-left,
 .owner-right {
   width: 100%;
@@ -40,7 +39,6 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-/* ===== LEFT INFO CARD ===== */
 .owner-left {
   background: #fafafa;
   padding: 28px 24px;
@@ -107,7 +105,6 @@
   color: #888;
 }
 
-/* ===== RIGHT FORM CARD ===== */
 .owner-right {
   background: #fff;
   padding: 30px;
@@ -120,7 +117,6 @@
   gap: 18px;
 }
 
-/* ===== CITY DROPDOWN ===== */
 .city-dropdown {
   width: 60%;
   margin: 0 auto;
@@ -190,7 +186,6 @@
   color: #009587;
 }
 
-/* ===== "New" Badge ===== */
 .new-badge {
   background: #ff5a5f;
   color: #fff;
@@ -201,7 +196,6 @@
   margin-left: 6px;
 }
 
-/* ===== WHATSAPP ROW ===== */
 .whatsapp-row {
   display: flex;
   align-items: center;
@@ -263,7 +257,6 @@ input:checked + .slider:before {
   transform: translateX(16px);
 }
 
-/* ===== CENTER HEADINGS + BUTTONS ===== */
 .center-heading {
   text-align: center;
   width: 100%;
@@ -280,7 +273,6 @@ input:checked + .slider:before {
   gap: 10px;
 }
 
-/* ===== BUTTON STYLING ===== */
 .btn-group button {
   background: #fff;
   border: 1px solid #d9d9d9;
@@ -310,7 +302,6 @@ input:checked + .slider:before {
   transform: scale(0.98);
 }
 
-/* ===== SUBMIT BUTTON ===== */
 .submit-btn {
   background: #ff5a60;
   color: white;
@@ -329,7 +320,6 @@ input:checked + .slider:before {
   background-color: #e34b51;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .owner-container {
     grid-template-columns: 1fr;

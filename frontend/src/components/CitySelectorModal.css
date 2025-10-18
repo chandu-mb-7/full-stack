@@ -1,0 +1,109 @@
+
+.city-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 999;
+}
+
+.city-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
+.city-modal.slide-out {
+  transform: translateY(-40px);
+  opacity: 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Title + subtitle */
+.city-modal h2 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.city-search {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  margin-bottom: 25px;
+}
+
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 18px;
+  justify-items: center;
+}
+
+.city-item {
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.city-item:hover {
+  transform: translateY(-3px);
+}
+
+.city-item img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  margin-bottom: 6px;
+  transition: transform 0.3s ease;
+}
+
+.city-item:hover img {
+  transform: scale(1.1);
+}
+
+.city-item span {
+  font-size: 14px;
+  color: #222;
+  font-weight: 500;
+}
+.city-modal {
+  width: 520px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 35px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+.city-modal.slide-in {
+  transform: translateY(0);
+  opacity: 1;
+}
