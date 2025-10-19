@@ -4,29 +4,40 @@ import OwnerForm from "./components/OwnerForm";
 import PropertyDetails from "./components/PropertyDetails";
 import HomePage from "./components/HomePage";
 import RentalAgreementPage from "./rental/RentalAgreementPage";
-import Service from "./components/service";
+import Service from "./components/Service";
 import RentService from "./components/RentService";
 import ServicePage from "./components/ServicePage";
 import RentPage from "./components/RentPage";
-import HomeInteriorsPage from "./interiors/HomeInteriorsPage"; // ✅ <-- ADD THIS
+import HomeInteriorsPage from "./interiors/HomeInteriorsPage";
+import AvoidContent from "./components/AvoidContent";
 
 function AppContent() {
   const location = useLocation();
 
   return (
     <>
-      <Navbar /> {/* Always visible */}
+      <Navbar /> 
       <Routes>
+       
         <Route path="/" element={<HomePage />} />
-        <Route path="/rental-agreement" element={<RentalAgreementPage />} />
         <Route path="/owner" element={<OwnerForm />} />
         <Route path="/property-details" element={<PropertyDetails />} />
+
+        
         <Route path="/buy" element={<Service />} />
         <Route path="/rent" element={<RentService />} />
         <Route path="/commercial" element={<RentService />} />
+
+   
         <Route path="/service-page" element={<ServicePage />} />
         <Route path="/rent-page" element={<RentPage />} />
-        <Route path="/interiors" element={<HomeInteriorsPage />} /> {/* ✅ FIXED */}
+        <Route path="/interiors" element={<HomeInteriorsPage />} />
+
+       
+        <Route path="/rental-agreement" element={<RentalAgreementPage />} />
+
+
+        <Route path="/avoid-brokers" element={<AvoidContent />} />
       </Routes>
     </>
   );
