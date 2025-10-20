@@ -3,7 +3,7 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import SaleAgreementPage from "./components/SaleAgreementPage";
 import HomeLoanPage from "./components/HomeLoanPage";
-import AvoidBroker from "./data/avoidBroker";
+
 import OwnerForm from "./components/OwnerForm";
 import PropertyDetails from "./components/PropertyDetails";
 import HomePage from "./components/HomePage";
