@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./CitySelectorModal.css";
 import bangalore from "../assets/Banglore.png";
 import mumbai from "../assets/Mumbai.png";
 import pune from "../assets/Pune.png";
@@ -11,7 +12,6 @@ import greaternoida from "../assets/greater_noida.png";
 import ghaziabad from "../assets/Ghaziabad.png";
 import faridabad from "../assets/Faridabad.png";
 import nagpur from "../assets/nagpur.png";
-import "./CitySelectorModal.css";
 
 const cities = [
   { name: "Bangalore", img: bangalore },
@@ -31,15 +31,28 @@ const cities = [
 export default function CitySelectorModal({ isOpen, onClose, onCitySelect }) {
   const [search, setSearch] = useState("");
 
-  if (!isOpen) return null; // hides modal when closed
+  if (!isOpen) return null;
 
   const filteredCities = cities.filter((city) =>
     city.name.toLowerCase().includes(search.toLowerCase())
   );
 
+
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("city-overlay")) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={`city-overlay ${isOpen ? "show" : ""}`}>
-      <div className={`city-modal ${isOpen ? "slide-in" : "slide-out"}`}>
+    <div
+      className={`city-overlay ${isOpen ? "show" : ""}`}
+      onClick={handleOverlayClick} 
+    >
+      <div
+        className={`city-modal ${isOpen ? "slide-in" : "slide-out"}`}
+        onClick={(e) => e.stopPropagation()} 
+      >
         <button className="close-btn" onClick={onClose}>
           ✕
         </button>

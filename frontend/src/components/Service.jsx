@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Service.css";
 import { useNavigate } from "react-router-dom";
 
-//--------------BUY---------------------
+// ✅ Import all images
 const builderImg = new URL("../assets/buy/builder.png", import.meta.url).href;
 const saleImg = new URL("../assets/buy/sale.png", import.meta.url).href;
 const loanImg = new URL("../assets/buy/loan.png", import.meta.url).href;
@@ -14,35 +14,35 @@ const freeImg = new URL("../assets/buy/free.png", import.meta.url).href;
 const shortlistImg = new URL("../assets/buy/shortlist.png", import.meta.url).href;
 const rentalImg = new URL("../assets/buy/rental.png", import.meta.url).href;
 
-const Service = () => {
+const Service = ({ onOpenCityModal }) => {
   const navigate = useNavigate();
 
-  const openPage = (text) => {
-    switch (text) {
-      case "Avoid Brokers":
-        navigate("/avoid-brokers");
-        break;
-      case "Free Listing":
-        navigate("/owner");
-        break;
-      case "Shortlist without Visit":
-        navigate("/avoid-brokers?section=tenants");
-        break;
-      case "Rental Agreement":
-        navigate("/rental-agreement");
-        break;
-      default:
-        break;
+  // ✅ handle navigation for top services
+  const handleServiceClick = (service) => {
+    if (service.text === "Builder Projects") {
+      if (onOpenCityModal) {
+        onOpenCityModal();
+      } else {
+        console.error("onOpenCityModal function is not provided");
+      }
+    } else if (service.text === "Sale Agreement") {
+      window.open("/sale-agreement", "_blank");
+    } else if (service.text === "Property Legal Services") {
+      window.open("/property-legal", "_blank");
+    } else if (service.text === "NoBroker For NRIs") {
+      window.open("/nri-services", "_blank");
+    } else {
+      navigate(service.link);
     }
   };
 
   return (
     <div className="service-section text-center py-5">
-
+      {/* --- Top Services --- */}
       <div className="container mb-5">
         <div className="row justify-content-center g-4 align-items-start">
           {[
-            { img: builderImg, text: "Builder Projects", link: "/builder-projects" },
+            { img: builderImg, text: "Builder Projects", link: null },
             { img: saleImg, text: "Sale Agreement", link: "/sale-agreement" },
             { img: loanImg, text: "Home Loan", link: "/home-loan" },
             { img: legalImg, text: "Property Legal Services", link: "/property-legal" },
@@ -53,7 +53,10 @@ const Service = () => {
               className="col-6 col-md-2 text-center d-flex flex-column align-items-center"
               key={idx}
             >
-              <div style={{ cursor: "pointer" }} onClick={() => navigate(service.link)}>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => handleServiceClick(service)}
+              >
                 <img
                   src={service.img}
                   alt={service.text}
@@ -67,6 +70,7 @@ const Service = () => {
         </div>
       </div>
 
+      {/* --- Divider --- */}
       <h3 className="heading-line text-center">
         <span className="line"></span>
         <span className="circle"></span>
@@ -74,6 +78,8 @@ const Service = () => {
         <span className="circle"></span>
         <span className="line"></span>
       </h3>
+
+      {/* --- Bottom Features --- */}
       <div className="container mt-5">
         <div className="row justify-content-center g-4">
           {[
@@ -101,7 +107,17 @@ const Service = () => {
             <div className="col-6 col-md-3 text-center" key={idx}>
               <div
                 style={{ cursor: "pointer" }}
-                onClick={() => openPage(feature.text)}
+                onClick={() =>
+                  navigate(
+                    feature.text === "Rental Agreement"
+                      ? "/rental-agreement"
+                      : feature.text === "Free Listing"
+                      ? "/owner"
+                      : feature.text === "Avoid Brokers"
+                      ? "/avoid-brokers"
+                      : "/"
+                  )
+                }
               >
                 <img
                   src={feature.img}
@@ -116,6 +132,8 @@ const Service = () => {
           ))}
         </div>
       </div>
+
+      {/* --- Floating Chat Button --- */}
       <button className="fab-btn btn btn-danger rounded-circle">
         <i className="bi bi-chat-dots"></i>
       </button>
