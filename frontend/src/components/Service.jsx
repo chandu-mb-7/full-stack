@@ -107,17 +107,25 @@ const Service = ({ onOpenCityModal }) => {
             <div className="col-6 col-md-3 text-center" key={idx}>
               <div
                 style={{ cursor: "pointer" }}
-                onClick={() =>
-                  navigate(
-                    feature.text === "Rental Agreement"
-                      ? "/rental-agreement"
-                      : feature.text === "Free Listing"
-                      ? "/owner"
-                      : feature.text === "Avoid Brokers"
-                      ? "/avoid-brokers"
-                      : "/"
-                  )
-                }
+                onClick={() => {
+  switch (feature.text) {
+    case "Avoid Brokers":
+      navigate("/avoid-brokers");
+      break;
+    case "Free Listing":
+      navigate("/owner");
+      break;
+    case "Shortlist without Visit":
+      navigate("/avoid-brokers?section=tenants");
+      break;
+    case "Rental Agreement":
+      navigate("/rental-agreement");
+      break;
+    default:
+      break;
+  }
+}}
+
               >
                 <img
                   src={feature.img}
