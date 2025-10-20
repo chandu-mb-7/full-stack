@@ -193,12 +193,14 @@ import React, { useState } from "react";
 import "./HomePage.css";
 import { FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import ServicePage from "./ServicePage"; // For Buy
-import RentPage from "./RentPage";       // For Rent & Commercial
+import ServicePage from "./ServicePage";
+import RentPage from "./RentPage";
+import CitySelectorModal from "./CitySelectorModal"; // ✅ import modal
 
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState("buy");
   const [selectedCity, setSelectedCity] = useState("Bangalore");
+  const [isCityModalOpen, setIsCityModalOpen] = useState(false); // ✅ modal state
   const navigate = useNavigate();
 
   const tabTopCards = {
@@ -225,14 +227,24 @@ const HomePage = () => {
     ],
   };
 
+  // navigate for Rental Agreement
   const handleActionClick = (text) => {
     if (text.includes("Rental Agreement")) {
       navigate("/rental-agreement");
     }
   };
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
+  const handleTabClick = (tab) => setActiveTab(tab);
+
+  // ✅ function to open modal from child (ServicePage)
+  const handleOpenCityModal = () => {
+    setIsCityModalOpen(true);
+  };
+
+  // ✅ when user selects a city
+  const handleCitySelect = (city) => {
+    setSelectedCity(city);
+    setIsCityModalOpen(false);
   };
 
   return (
@@ -252,7 +264,9 @@ const HomePage = () => {
             <img src={item.leftImg} alt="left" className="mini-icon" />
             <span className="btn-text">
               {item.text.split("|")[0].trim()}{" "}
-              <span className="faded-text">| {item.text.split("|")[1].trim()}</span>
+              <span className="faded-text">
+                | {item.text.split("|")[1].trim()}
+              </span>
             </span>
             <img src={item.rightImg} alt="right" className="mini-icon" />
           </div>
@@ -288,16 +302,24 @@ const HomePage = () => {
           </button>
         </div>
 
-        {/* --- Conditional Filters per Tab --- */}
+        {/* --- Filters per tab --- */}
         {activeTab === "buy" && (
           <div className="row-bottom">
             <div className="radio-group">
-              <label><input type="radio" name="buyType" defaultChecked /> Full House</label>
-              <label><input type="radio" name="buyType" /> Land/Plot</label>
+              <label>
+                <input type="radio" name="buyType" defaultChecked /> Full House
+              </label>
+              <label>
+                <input type="radio" name="buyType" /> Land/Plot
+              </label>
             </div>
             <div className="filters">
-              <select><option>BHK Type</option></select>
-              <select><option>Property Status</option></select>
+              <select>
+                <option>BHK Type</option>
+              </select>
+              <select>
+                <option>Property Status</option>
+              </select>
               <label className="check-item">
                 <input type="checkbox" /> New Builder Projects
               </label>
@@ -308,14 +330,26 @@ const HomePage = () => {
         {activeTab === "rent" && (
           <div className="row-bottom">
             <div className="radio-group">
-              <label><input type="radio" name="rentType" defaultChecked /> Full House</label>
-              <label><input type="radio" name="rentType" /> PG/Hostel</label>
-              <label><input type="radio" name="rentType" /> Flatmates</label>
+              <label>
+                <input type="radio" name="rentType" defaultChecked /> Full House
+              </label>
+              <label>
+                <input type="radio" name="rentType" /> PG/Hostel
+              </label>
+              <label>
+                <input type="radio" name="rentType" /> Flatmates
+              </label>
             </div>
             <div className="filters">
-              <select><option>Independent House</option></select>
-              <select><option>BHK Type</option></select>
-              <select><option>Availability</option></select>
+              <select>
+                <option>Independent House</option>
+              </select>
+              <select>
+                <option>BHK Type</option>
+              </select>
+              <select>
+                <option>Availability</option>
+              </select>
             </div>
           </div>
         )}
@@ -323,20 +357,27 @@ const HomePage = () => {
         {activeTab === "commercial" && (
           <div className="row-bottom">
             <div className="radio-group">
-              <label><input type="radio" name="commercialType" defaultChecked /> Office</label>
-              <label><input type="radio" name="commercialType" /> Shop</label>
-              <label><input type="radio" name="commercialType" /> Warehouse</label>
+              <label>
+                <input type="radio" name="commercialType" defaultChecked /> Office
+              </label>
+              <label>
+                <input type="radio" name="commercialType" /> Shop
+              </label>
+              <label>
+                <input type="radio" name="commercialType" /> Warehouse
+              </label>
             </div>
             <div className="filters">
-              <select><option>Property Size</option></select>
-              <select><option>Status</option></select>
+              <select>
+                <option>Property Size</option>
+              </select>
+              <select>
+                <option>Status</option>
+              </select>
             </div>
           </div>
         )}
       </div>
-
-      
-      
 
       {/* --- Owner Section --- */}
       <div className="owner-section">
@@ -354,17 +395,22 @@ const HomePage = () => {
         <button className="eligibility-btn">Check Eligibility</button>
       </div>
 
-{/* --- Render Full Pages Below Search --- */}
-<div className="tab-full-content">
-        {activeTab === "buy" && <ServicePage />}
-        {(activeTab === "rent" || activeTab === "commercial") && <RentPage />}
-      </div>
+      {/* --- Full Page Sections --- */}
+     <div className="tab-full-content">
+  {activeTab === "buy" && (
+    <ServicePage onOpenCityModal={handleOpenCityModal} />
+  )}
+  {(activeTab === "rent" || activeTab === "commercial") && <RentPage />}
+</div>
 
+      {/* ✅ Modal Component */}
+      <CitySelectorModal
+        isOpen={isCityModalOpen}
+        onClose={() => setIsCityModalOpen(false)}
+        onCitySelect={handleCitySelect}
+      />
     </div>
   );
 };
 
 export default HomePage;
-
-
-

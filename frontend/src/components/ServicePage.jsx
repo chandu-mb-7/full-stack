@@ -1,13 +1,7 @@
-
 import Service from "./service";
 
-const ServicePage = () => {
- 
-  return (
-   <Service/>
-  );
+const ServicePage = ({ onOpenCityModal }) => {
+  return <Service onOpenCityModal={onOpenCityModal} />; 
 };
 
 export default ServicePage;
-
-
