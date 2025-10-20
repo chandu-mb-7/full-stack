@@ -1,0 +1,75 @@
+.movers-section {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.why-card h5,
+.comparison-card h5 {
+  color: #2e2e2e;
+}
+
+.icon-wrap {
+  width: 45px;
+  height: 45px;
+  background-color: #f4f2fc;
+  color: #6c63ff;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.icon-wrap:hover {
+  background-color: #6c63ff;
+  color: #fff;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.table thead th {
+  border-bottom: none;
+  font-size: 0.95rem;
+}
+
+.table tbody tr {
+  background-color: #fafafa;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table td {
+  vertical-align: middle;
+  font-size: 0.9rem;
+  border-top: none;
+}
+
+.check-icon {
+  color: #4caf50;
+  font-size: 1.2rem;
+}
+
+.cross-icon {
+  color: #aaa;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .why-card h5,
+  .comparison-card h5 {
+    text-align: center;
+  }
+
+  .icon-wrap {
+    margin: 0 auto;
+  }
+
+  .why-card .row > div {
+    text-align: center;
+    flex-direction: column;
+  }
+}

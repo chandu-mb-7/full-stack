@@ -183,6 +183,7 @@ const NoBrokerForNRIs = () => {
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>
@@ -771,9 +772,14 @@ const NoBrokerForNRIs = () => {
 
 
 
-{/* info section */}
 
 
+
+
+
+
+
+    {/* info section */}
 
 
 
@@ -928,7 +934,7 @@ NoBroker’s NRI property management services in India are designed to make prop
 
 
 {/* 🔹 NRI Services Section */}
-{/* 🔹 NRI Services Section */}
+
 
   <div className="container my-5">
   <div className="card shadow-sm p-3">
