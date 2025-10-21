@@ -56,10 +56,12 @@ const LoginModal = ({ isOpen, onClose }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: fullPhone, otp }),
       });
-      const data = await res.json();
-
-      if (res.ok) {
-        localStorage.setItem("authToken", data.token);
+       
+    const data = await res.json();
+    console.log("OTP verify response:", data);
+    if (res.ok) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
         setMessage("OTP verified successfully!");
         setStep(3);
       } else {
@@ -73,7 +75,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
   const saveUserInfo = async () => {
     try {
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem("token");
       const res = await fetch("http://localhost:5000/api/user/save-user", {
         method: "POST",
         headers: {

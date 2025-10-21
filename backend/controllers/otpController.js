@@ -36,5 +36,5 @@ export const verifyOtp = (req, res) => {
   const token = jwt.sign({ phone }, process.env.JWT_SECRET, { expiresIn: "1h" });
   otpStore.delete(phone);
 
-  res.json({ message: "OTP verified successfully", token });
+  res.json({ message: "OTP verified successfully", token, user: { phone }, });
 };

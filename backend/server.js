@@ -5,6 +5,8 @@ import { connectDB } from "./config/db.js";
 import otpRoutes from "./routes/otpRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import dotenv from "dotenv";
+import propertyRoutes from "./routes/PropertyRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -16,7 +18,7 @@ app.use(bodyParser.json());
 // Routes
 app.use("/api/otp", otpRoutes);
 app.use("/api/user", userRoutes);
-
+app.use("/api/properties", propertyRoutes);
 app.get("/", (req, res) => res.send(" Backend running"));
 
 app.listen(process.env.PORT || 5000, () =>

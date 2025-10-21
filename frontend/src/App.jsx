@@ -24,7 +24,7 @@ import PackerAndMover from "./components/PakerAndMover";
 import HomePainting from "./components/HomePainting";
 import ClickAndEarn from "./components/ClickAndEarn";
 import PayRent from "./components/PayRent";
-
+import MyProperties from "./components/MyProperties";
 function AppContent() {
   const location = useLocation();
 
@@ -96,6 +96,8 @@ function AppContent() {
         <Route path="/home-loan" element={<HomeLoanPage />} />
         <Route path="/property-legal" element={<PropertyLegalService />} />
         <Route path="/nri-services" element={<NoBrokerForNRIs />} />
+        <Route path="/my-properties" element={<MyProperties />} />
+
       </Routes>
     </>
   );
