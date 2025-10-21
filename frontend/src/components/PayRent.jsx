@@ -1,173 +1,163 @@
-import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-// import { Person, CreditCard, Bank } from "react-bootstrap-icons"; // Using Bootstrap Icons
- 
 
-const faqs = [
-  { question: "How secure is NoBroker Pay?", answer: "Your payments are encrypted and secure." },
-  { question: "How to contact NoBroker?", answer: "You can reach us via customer support." },
-  { question: "Benefits of using NoBroker Pay?", answer: "Instant payments, rewards, and cashback." },
-  { question: "Fees for using NoBroker Pay?", answer: "Minimal charges for credit card payments." },
-  { question: "How do I make my house rent payment?", answer: "Use any of the payment options above." },
-  { question: "How do I earn cashback/rewards?", answer: "Refer & Earn program available for users." },
-];
+import React, { useState } from "react";
+import { Container, Card, Row, Col } from "react-bootstrap";
+import "./PayRent.css";
 
-const customerReviews = [
-  {
-    name: "Joyitha Dsouza",
-    rating: 5,
-    review:
-      "I am really excited about using NoBroker Pay. I had paid my house rent through my credit card. The entire process is seamless...",
-    img: "https://assets.nobroker.in/hs-new/public/Home-Services/testimonial_manoj.webp",
-  },
-  {
-    name: "Arjun Santosh",
-    rating: 5,
-    review:
-      "NoBroker Pay has helped me immensely to manage finances better. Now I am able to earn approx. ₹ 30k using my Amex Platinum...",
-    img: "https://assets.nobroker.in/hs-new/public/Home-Services/testimonial_daniel.webp",
-  },
-];
-
-const PayRent = () => {
+const PayPage = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
-  const [hideHeader, setHideHeader] = useState(false);
-    const [lastScrollY, setLastScrollY] = useState(0);
+  const toggleFAQ = (i) => setOpenFAQ(openFAQ === i ? null : i);
 
-  // Scroll behavior to hide header
-   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        setHideHeader(true); // scroll down -> hide header
-      } else {
-        setHideHeader(false); // scroll up -> show header
-      }
-      setLastScrollY(window.scrollY);
-    };
+  const faqs = [
+    { q: "How secure is NoBroker Pay?", a: "Your payments are encrypted and secure." },
+    { q: "How to contact NoBroker?", a: "You can reach us via customer support." },
+    { q: "What are the benefits of using NoBroker Pay?", a: "Instant payments, rewards, and cashback." },
+    { q: "What are the fees/charges for using NoBroker Pay?", a: "Minimal charges for credit card payments." },
+    { q: "How do I make my house rent payment?", a: "Use any of the payment options above." },
+    { q: "How do I earn cashback/rewards?", a: "Refer & Earn program available for users." },
+  ];
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  const reviews = [
+    {
+      name: "Jyothi Dave",
+      text: "I am really excited about using NoBroker Pay. The process was seamless and quick.",
+      img: "https://assets.nobroker.in/hs-new/public/Home-Services/testimonial_manoj.webp",
+    },
+    {
+      name: "Arjun Santosh",
+      text: "NoBroker Pay helped me manage finances better. I now earn rewards easily using my card.",
+      img: "https://assets.nobroker.in/hs-new/public/Home-Services/testimonial_daniel.webp",
+    },
+  ];
 
   return (
-    <div>
-      {/* Header / Payment Options */}
-      <div
-        className={`bg-primary text-white py-1px-4 d-flex justify-content-start gap-2 align-items-center position-sticky top-0 transition-all`}
-        style={{
-          zIndex: 999,
-          transition: "top 0.3s",
-          top: hideHeader ? "-80px" : "0",
-        }}
-      >
-        <button className="btn btn-light">to Contact</button>
-        <button className="btn btn-light">to UPI</button>
-        <button className="btn btn-light">to Bank Account</button>
-      </div>
+    <div className="pay-page">
+      {/* === FIXED BLUE HEADER === */}
+      <header className="top-fixed">
+        <div className="blue-bg">
+          <Container className="text-center">
+            <h2 className="main-heading">Payments via Credit Card</h2>
+            <p className="subtext ">
+              START NEW PAYMENT FOR <span className="highlight">Rent</span>
+            </p>
+          </Container>
+        </div>
 
-      {/* Pay Bills Section */}
-      <div className="container my-5">
-        <div className="card p-4 shadow-sm">
-          <h5 className="mb-3">Pay bills expenses</h5>
-          <div className="d-flex flex-wrap justify-content-between">
-            {[
-              "House Rent",
-              "School Fee",
-              "Society Maintenance",
-              "Tuition Fee",
-              "Office/Shop Rent",
-              "Property Token",
-              "Property Deposit",
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="text-center p-2 mb-2"
-                style={{ minWidth: "90px" }}
-              >
-                <img
-                  src="https://assets.nobroker.in/nb-new/public/Refer-And-Earn/Camera.png"
-                  alt={item}
-                  className="img-fluid mb-1"
-                  style={{ width: "40px", height: "40px" }}
-                />
-                <div style={{ fontSize: "0.8rem" }}>{item}</div>
-              </div>
-            ))}
+        {/* Floating white cards (overlap area) */}
+        <div className="floating-cards">
+          <div className="max-container">
+            <Card className="action-card">
+              <i className="bi bi-person-circle"></i>
+              <h6>to Contact</h6>
+            </Card>
+            <Card className="action-card active">
+              <i className="bi bi-upc-scan"></i>
+              <h6>to UPI</h6>
+            </Card>
+            <Card className="action-card">
+              <i className="bi bi-bank"></i>
+              <h6>to Bank Account</h6>
+            </Card>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Why Pay Cards */}
-      <div className="container my-4 d-flex flex-wrap gap-3">
-        {[
-          "Instant transfer to bank accounts",
-          "Keep more money in your bank account",
-          "Doorway to increase your credit score",
-        ].map((text, idx) => (
-          <div key={idx} className="card p-3 shadow-sm flex-fill">
-            {text}
-          </div>
-        ))}
-      </div>
-
-      {/* Customer Reviews */}
-      <div className="container my-5">
-        <h5 className="mb-3">Customer Reviews</h5>
-        <div className="row">
-          {customerReviews.map((c, i) => (
-            <div key={i} className="col-md-6 mb-3">
-              <div className="card p-3 shadow-sm h-100">
-                <p>
-                  {Array.from({ length: c.rating }).map((_, idx) => (
-                    <span key={idx} style={{ color: "#FFD700" }}>
-                      ★
-                    </span>
-                  ))}
-                </p>
-                <p>{c.review}</p>
-                <div className="d-flex align-items-center gap-2">
-                  <img
-                    src={c.img}
-                    alt={c.name}
-                    className="rounded-circle"
-                    style={{ width: "40px", height: "40px" }}
-                  />
-                  <span>{c.name}</span>
+      {/* === MAIN CONTENT (scrolls underneath) === */}
+      <main className="content">
+        <section className="section-box">
+          <Card className="p-4 shadow-sm border-0">
+            <h5 className="fw-semibold mb-4">Pay bills expenses</h5>
+            <div className="bill-icons">
+              {[
+                { icon: "bi-house-door", label: "House Rent" },
+                { icon: "bi-book", label: "School Fee" },
+                { icon: "bi-building", label: "Society Maintenance" },
+                { icon: "bi-journal", label: "Tuition Fee" },
+                { icon: "bi-briefcase", label: "Office/Shop Rent" },
+                { icon: "bi-key", label: "Property Token" },
+                { icon: "bi-shield-lock", label: "Property Deposit" },
+              ].map((b, i) => (
+                <div key={i} className="bill-item">
+                  <i className={`bi ${b.icon} bill-icon`}></i>
+                  <p>{b.label}</p>
                 </div>
+              ))}
+            </div>
+          </Card>
+        </section>
+
+        {/* Why Pay Section */}
+        <section className="section-box">
+          <Row className="g-3">
+            {[
+              {
+                icon: "bi-lightning-charge",
+                title: "Instant transfer to bank accounts",
+                subtitle: "get 45 days of interest free credit",
+              },
+              {
+                icon: "bi-cash-stack",
+                title: "Keep more money in your bank account",
+                subtitle: "and get 45 days interest free credit",
+              },
+              {
+                icon: "bi-graph-up",
+                title: "Doorway to increase your credit score",
+                subtitle: "and get 45 days interest free credit",
+              },
+            ].map((item, idx) => (
+              <Col md={4} sm={12} key={idx}>
+                <Card className="p-3 shadow-sm border-0 text-start why-card">
+                  <div className="why-icon">
+                    <i className={`bi ${item.icon}`}></i>
+                  </div>
+                  <div>
+                    <h6 className="fw-semibold">{item.title}</h6>
+                    <p className="small mb-0">{item.subtitle}</p>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </section>
+
+        {/* Reviews */}
+        <section className="section-box">
+          <h5 className="fw-semibold mb-3">Customer Reviews</h5>
+          <Row className="g-3">
+            {reviews.map((r, i) => (
+              <Col md={6} key={i}>
+                <Card className="p-4 border-0 shadow-sm review-card">
+                  <p className="review-text">{r.text}</p>
+                  <div className="reviewer">
+                    <img src={r.img} alt={r.name} className="review-img" />
+                    <span className="review-name">{r.name}</span>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="section-box">
+          <h5 className="fw-semibold mb-3">Frequently Asked Questions</h5>
+          {faqs.map((faq, i) => (
+            <Card
+              key={i}
+              className="faq-card mb-2 border-0 shadow-sm"
+              onClick={() => toggleFAQ(i)}
+            >
+              <div className="card-header d-flex justify-content-between align-items-center">
+                <span>{faq.q}</span>
+                <span className="toggle">{openFAQ === i ? "−" : "+"}</span>
               </div>
-            </div>
+              {openFAQ === i && <div className="card-body">{faq.a}</div>}
+            </Card>
           ))}
-        </div>
-      </div>
-
-      {/* FAQ Section */}
-      <div className="container my-5">
-        <h5 className="mb-3">Frequently Asked Questions</h5>
-        {faqs.map((faq, i) => (
-          <div
-            key={i}
-            className="card mb-2 shadow-sm"
-            style={{ cursor: "pointer" }}
-            onClick={() => toggleFAQ(i)}
-          >
-            <div className="card-header d-flex justify-content-between">
-              <span>{faq.question}</span>
-              <span>{openFAQ === i ? "-" : "+"}</span>
-            </div>
-            {openFAQ === i && <div className="card-body">{faq.answer}</div>}
-          </div>
-        ))}
-      </div>
-
-
-
-
-
-
-
-
+        </section>
+      </main>
     </div>
   );
 };
 
-export default PayRent;
+export default PayPage;

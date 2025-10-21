@@ -1,0 +1,231 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  background: #f7f8fa;
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+}
+
+/* FIXED BLUE HEADER */
+.top-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Blue background gradient */
+.blue-bg {
+  background: linear-gradient(135deg, #002b9a 0%, #2147d9 100%);
+  color: #fff;
+  text-align: center;
+  padding: 70px 0 140px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  position: relative;
+}
+
+.main-heading {
+  font-weight: 700;
+  font-size: 1.9rem;
+  margin-bottom: 5px;
+}
+
+.subtext {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  color: #fff;
+}
+
+.highlight {
+  color: #6ee6ff;
+}
+
+/* FLOATING CARDS WRAPPER */
+.floating-cards {
+  position: absolute;
+  bottom: -75px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.max-container {
+  width: min(1200px, 90%);
+  margin: 0 auto;
+}
+
+.card-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* LEFT MAIN CARDS */
+.left-cards {
+  display: flex;
+  gap: 25px;
+}
+
+.action-card {
+  width: 230px;
+  height: 110px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.action-card i {
+  font-size: 1.9rem;
+  color: #2147d9;
+  margin-top: 20px;
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.action-card.active {
+  border: 2px solid #2147d9;
+}
+
+/* RIGHT OFFER CARDS */
+.right-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.offer-card {
+  background: #eef4ff;
+  border-radius: 12px;
+  padding: 15px;
+  width: 230px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.offer-card h6 {
+  color: #002b9a;
+  font-weight: 700;
+}
+
+.loan-card {
+  background: #151c39;
+  color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 230px;
+  text-align: center;
+}
+
+.get-now {
+  background: #00c16e;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 6px 16px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+/* MAIN CONTENT */
+.content {
+  position: relative;
+  z-index: 1;
+  margin-top: 360px;
+}
+
+/* SECTIONS */
+.section-box {
+  width: min(1200px, 90%);
+  margin: 0 auto 60px auto;
+}
+
+/* BILL ICONS */
+.bill-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.bill-item {
+  width: 110px;
+}
+
+.bill-icon {
+  font-size: 2rem;
+  color: #2147d9;
+  margin-bottom: 6px;
+}
+
+/* Payment tags */
+.payment-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: #f6f8fc;
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 0.85rem;
+  color: #444;
+  margin-top: 15px;
+}
+
+/* WHY SECTION */
+.why-card {
+  background: #f1f4ff;
+  border-radius: 10px;
+}
+
+.why-card-group {
+  background: #f6f8fc;
+  border-radius: 20px;
+}
+
+.why-title img {
+  width: 45px;
+}
+
+/* REVIEWS */
+.review-card {
+  border-radius: 14px;
+}
+
+.review-text {
+  font-size: 0.9rem;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.review-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* FAQ */
+.faq-card {
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.faq-card:hover {
+  background: #f9fafb;
+}
+
+.toggle {
+  font-size: 1.4rem;
+  font-weight: bold;
+}

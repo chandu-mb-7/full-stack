@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 import Navbar from "./components/Navbar";
 import SaleAgreementPage from "./components/SaleAgreementPage";
 import HomeLoanPage from "./components/HomeLoanPage";
@@ -25,7 +28,7 @@ import PayRent from "./components/PayRent";
 function AppContent() {
   const location = useLocation();
 
-  // ✅ City modal control
+  //  City modal control
   const [isCityModalOpen, setIsCityModalOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState(
     localStorage.getItem("selectedCity") || ""
