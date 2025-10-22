@@ -1,0 +1,194 @@
+.property-list-page {
+  padding: 80px 40px;
+  background: #f7f8fa;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c2c2c;
+  text-align: left;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 40px;
+}
+
+.title-icon {
+  color: #a35d0d;
+  font-size: 1.9rem;
+}
+
+/* Property Grid */
+.property-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: flex-start;
+  padding: 0 40px;
+}
+
+/* Property Card */
+.property-card {
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Header */
+.property-card h3 {
+  font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #15b358;
+  color: white;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+/* Info Text */
+.property-card p {
+  font-size: 0.92rem;
+  margin: 5px 0;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.icon {
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Buttons */
+.property-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.edit-btn,
+.delete-btn {
+  border: none;
+  padding: 7px 14px;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.edit-btn {
+  background-color: #198754;
+}
+.edit-btn:hover {
+  background-color: #157347;
+}
+.delete-btn {
+  background-color: #dc3545;
+}
+.delete-btn:hover {
+  background-color: #b02a37;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirm-modal {
+  background: white;
+  border-radius: 12px;
+  padding: 25px 30px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-modal h3 {
+  color: #dc3545;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+.confirm-modal p {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 18px;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cancel-btn,
+.confirm-btn {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #ccc;
+  color: #222;
+}
+.cancel-btn:hover {
+  background: #b8b8b8;
+}
+
+.confirm-btn {
+  background: #dc3545;
+  color: white;
+}
+.confirm-btn:hover {
+  background: #b02a37;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .property-grid {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .property-card {
+    width: 90%;
+  }
+}

@@ -8,9 +8,9 @@ import "./SaleAgreementPage.css";
 const SaleAgreementPage = () => {
   return (
     <section className="sale-agreement">
-      <div className="container-fluid g-0">
+      <div className="container g-0">
         <div className="sale-bg-section d-flex flex-column justify-content-center">
-          <div className="container-xl px-lg-5 px-md-4 px-3">
+          <div className="container px-lg-5 px-md-4 px-3">
             <div className="row align-items-start g-5">
               {/* ===== LEFT SIDE CONTENT ===== */}
               <div className="col-lg-7 col-md-12 text-white">

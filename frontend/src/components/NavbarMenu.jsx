@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./NavbarMenu.css";
+import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaGoogle } from "react-icons/fa";
 
 const NavbarMenu = ({ isOpen, onClose }) => {
@@ -28,25 +29,30 @@ const NavbarMenu = ({ isOpen, onClose }) => {
   return (
     <div ref={menuRef} className="nb-dropdown">
       <ul>
-        <li>Post Your Property</li>
-        <li>Rental Agreement</li>
-        <li>Painting & Cleaning</li>
-        <li>Packers and Movers</li>
-        <li>Refer & Earn</li>
-        <li>Rent Receipts</li>
-        <li>Tenant Plans</li>
-        <li>Owner Plans</li>
-        <li>Buyer Plans</li>
-        <li>Seller Plans</li>
+        <li><Link to="/owner" onClick={onClose}>Post Your Property</Link></li>
+        <li><Link to="/rental-agreement" onClick={onClose}>Rental Agreement</Link></li>
+        <li><Link to="/home-painting" onClick={onClose}>Painting & Cleaning</Link></li>
+        <li><Link to="/packers-movers" onClick={onClose}>Packers and Movers</Link></li>
+        <li><Link to="/click-earn" onClick={onClose}>Refer & Earn</Link></li>
+        <li><Link to="/pay-rent-online" onClick={onClose}>Rent Receipts</Link></li>
+        <li><Link to="/rent" onClick={onClose}>Tenant Plans</Link></li>
+        <li><Link to="/owner" onClick={onClose}>Owner Plans</Link></li>
+        <li><Link to="/buy" onClick={onClose}>Buyer Plans</Link></li>
+        <li><Link to="/commercial" onClick={onClose}>Seller Plans</Link></li>
+
         <li className="dropdown-item">
-          Commercial Plans <span className="arrow">⌄</span>
+          <Link to="/commercial" onClick={onClose}>Commercial Plans</Link>
+          <span className="arrow">⌄</span>
         </li>
-        <li>Careers</li>
-        <li>Corporate Enquiry</li>
-        <li>Blog</li>
-        <li>NoBroker Support</li>
+
+        <li><Link to="/careers" onClick={onClose}>Careers</Link></li>
+        <li><Link to="/corporate-enquiry" onClick={onClose}>Corporate Enquiry</Link></li>
+        <li><Link to="/blog" onClick={onClose}>Blog</Link></li>
+        <li><Link to="/support" onClick={onClose}>NoBroker Support</Link></li>
+
         <li className="dropdown-item">
-          Contact Us <span className="arrow">⌃</span>
+          <Link to="/contact" onClick={onClose}>Contact Us</Link>
+          <span className="arrow">⌃</span>
         </li>
       </ul>
 

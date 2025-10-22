@@ -87,7 +87,7 @@ const RentService = () => {
   }
 
 
-       
+
 
   return (
     <div className="service-section text-center py-5">

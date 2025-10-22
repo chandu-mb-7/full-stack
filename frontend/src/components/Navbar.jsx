@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaCreditCard, FaBars } from "react-icons/fa";
+import { FaCreditCard, FaBars, FaBell } from "react-icons/fa";
+import axios from "axios";
 import logo from "../assets/nb_logo.svg";
 import NavbarMenu from "./NavbarMenu";
 import LoginModal from "./LoginModal";
@@ -10,9 +11,9 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+  const [showListings, setShowListings] = useState(false);
+  const [myProperties, setMyProperties] = useState([]);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,7 +25,32 @@ const Navbar = () => {
   const isRentalPage = location.pathname.includes("rental-agreement");
   const isInteriorsPage = location.pathname.includes("interiors");
 
-  // Refresh user info
+  useEffect(() => {
+    if (user) fetchMyProperties();
+  }, [user]);
+
+  const fetchMyProperties = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/properties?ownerId=${user.phone}`
+      );
+      setMyProperties(res.data.properties || []);
+    } catch (err) {
+      console.error("Error fetching listings:", err);
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest(".bell-wrapper")) {
+        setShowListings(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  // Refresh user info after login/signup modal closes
   const refreshUser = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
@@ -37,7 +63,7 @@ const Navbar = () => {
     setUser(null);
   };
 
-  // For Property Owners click
+  // Handle “For Property Owners” button click
   const handleOwnerClick = () => {
     if (!isPropertyFlow) {
       navigate("/owner");
@@ -53,7 +79,7 @@ const Navbar = () => {
     window.dispatchEvent(new Event("storage"));
   };
 
-  // Handle back click (Interiors Page)
+  // Handle Back Button (Interiors Page)
   const handleBackClick = () => {
     navigate("/");
   };
@@ -62,7 +88,7 @@ const Navbar = () => {
     <>
       <header className="nb-header">
         <div className="nb-inner">
-          {/* ===== Left Section ===== */}
+         
           <div className="nb-left">
             {isInteriorsPage && (
               <span className="back-arrow" onClick={handleBackClick}>
@@ -70,26 +96,17 @@ const Navbar = () => {
               </span>
             )}
 
-            {/* === Logo (always same) === */}
             <Link to="/" className="nb-logo">
               <img src={logo} alt="NoBroker Logo" className="nb-logo-img" />
             </Link>
 
-            {/* === Page Titles === */}
-            {isRentalPage && (
-              <span className="legal-services">Legal Services</span>
-            )}
-
-            {isInteriorsPage && (
-              <span className="page-title">Home Interiors</span>
-            )}
+            {isRentalPage && <span className="legal-services">Legal Services</span>}
+            {isInteriorsPage && <span className="page-title">Home Interiors</span>}
           </div>
 
-          {/* ===== Right Section ===== */}
           <div className="nb-right">
             {isInteriorsPage ? (
               <>
-                {/* ✅ Interiors Page — no Menu button */}
                 <button className="contact-btn">📞 +91 9001376403</button>
                 <div className="divider"></div>
 
@@ -106,7 +123,7 @@ const Navbar = () => {
               </>
             ) : isRentalPage ? (
               <>
-                {/* === Rental Agreement Navbar === */}
+          
                 <select
                   className="city-dropdown-right"
                   onChange={handleCityChange}
@@ -128,9 +145,7 @@ const Navbar = () => {
                 </select>
 
                 <div className="divider"></div>
-
                 <button className="my-bookings-btn">My Bookings</button>
-
                 <div className="divider"></div>
 
                 {user && (
@@ -143,7 +158,6 @@ const Navbar = () => {
                     <span className="auth-link">{user.name || "User"}</span>
                   </div>
                 )}
-
                 <div className="divider"></div>
 
                 <div className="menu" onClick={() => setMenuOpen(true)}>
@@ -153,10 +167,43 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                {/* === Default Home Navbar === */}
+        
                 <button className="pay-btn">
                   <FaCreditCard className="icon" /> Pay Rent
                 </button>
+
+       
+                <div
+                  className="bell-wrapper"
+                  onClick={() => setShowListings(!showListings)}
+                >
+                  <FaBell className="bell-icon" />
+                  {myProperties.length > 0 && (
+                    <span className="bell-count">{myProperties.length}</span>
+                  )}
+                  {showListings && (
+                    <div className="bell-dropdown">
+                      <h4>My Listings</h4>
+                      {myProperties.length === 0 ? (
+                        <p className="no-listings">
+                          You haven’t listed any properties yet.
+                        </p>
+                      ) : (
+                        myProperties.slice(0, 3).map((p) => (
+                          <div key={p._id} className="listing-item">
+                            <strong>{p.propertyType}</strong> – {p.city}
+                            <div className="listing-sub">
+                              ₹{p.rent} | {p.locality}
+                            </div>
+                          </div>
+                        ))
+                      )}
+                      <Link to="/my-properties" className="view-all-btn">
+                        View All Listings →
+                      </Link>
+                    </div>
+                  )}
+                </div>
 
                 <button
                   className={`owner-btn ${
@@ -180,7 +227,7 @@ const Navbar = () => {
 
                 <div className="divider"></div>
 
-                {/* === Auth === */}
+   
                 {user ? (
                   <>
                     <div className="user-display">
@@ -216,7 +263,6 @@ const Navbar = () => {
 
                 <div className="divider"></div>
 
-                {/* === Menu === */}
                 <div className="menu" onClick={() => setMenuOpen(true)}>
                   <span>Menu</span>
                   <FaBars className="bars" />
@@ -227,10 +273,8 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* === Blue strip for rental page only === */}
       {isRentalPage && <div className="navbar-blue-strip"></div>}
 
-      {/* === Menu & Modals === */}
       <NavbarMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <LoginModal

@@ -329,3 +329,41 @@ input:checked + .slider:before {
     padding: 40px 25px;
   }
 }
+.login-mode-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.toggle-btn {
+  background: #f4f4f4;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.toggle-btn.active {
+  background: #ff5a5f;
+  color: white;
+}
+.toggle-mode-text {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  margin-top: 10px;
+}
+
+.toggle-link {
+  color: #ff5a5f;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.toggle-link:hover {
+  color: #ff3b40;
+}

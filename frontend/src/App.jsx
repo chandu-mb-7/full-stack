@@ -24,6 +24,8 @@ import HomePainting from "./components/HomePainting";
 import ClickAndEarn from "./components/ClickAndEarn";
 import PayRent from "./components/PayRent";
 import Enquire from "./enquiry/Enquire";
+import MyProperties from "./components/MyProperties";
+
 // import BusinessAssist from "./components/BusinessAssist";
 
 function AppContent() {
@@ -98,6 +100,8 @@ function AppContent() {
         <Route path="/home-loan" element={<HomeLoanPage />} />
         <Route path="/property-legal" element={<PropertyLegalService />} />
         <Route path="/nri-services" element={<NoBrokerForNRIs />} />
+        <Route path="/my-properties" element={<MyProperties />} />
+
       </Routes>
       {/* <BusinessAssist /> */}
 
