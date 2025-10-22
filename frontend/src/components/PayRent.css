@@ -18,70 +18,77 @@ body, html {
 .blue-bg {
   background: linear-gradient(135deg, #002b9a 0%, #2147d9 100%);
   color: #fff;
-  text-align: center;
-  padding: 70px 0 140px;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
+  height: 300px;
+  text-align: left;            
+  padding: 70px 0 110px 0%;    
+  border-bottom-left-radius: 70px;
+  border-bottom-right-radius: 70px;
   position: relative;
 }
 
 .main-heading {
-  font-weight: 700;
-  font-size: 1.9rem;
-  margin-bottom: 5px;
+  font-weight: 800;
+  font-size: 2.6rem;
+  margin-bottom: 6px;
+  margin-top:50px;
+  text-align: left;            
 }
 
 .subtext {
-  font-size: 0.9rem;
+  font-size: 1.4rem;
   opacity: 0.9;
-  color: #fff;
+  color: #43acd5;
+  margin-bottom: 0;
+  text-align: left;            
 }
 
-.highlight {
+.rotating-text {
   color: #6ee6ff;
+  font-weight: 1000;             
+  font-size: 1.7rem;            
+  letter-spacing: 0.5px;
+  display: inline-block;
+  min-width: 180px;
+  transition: opacity 0.5s ease-in-out;
+  animation: fadeInOut 2s infinite;
 }
+
 
 /* FLOATING CARDS WRAPPER */
 .floating-cards {
   position: absolute;
-  bottom: -75px;
+  bottom: -55px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .max-container {
-  width: min(1200px, 90%);
+  width: min(1500px, 90%);
   margin: 0 auto;
 }
 
-.card-section {
+.card-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
   flex-wrap: wrap;
-  align-items: flex-start;
 }
 
-/* LEFT MAIN CARDS */
-.left-cards {
-  display: flex;
-  gap: 25px;
-}
-
+/* Updated Action Card Styling */
 .action-card {
-  width: 230px;
-  height: 110px;
+  width: 380px;
+  height: 120px;
   border-radius: 16px;
   background: #fff;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s ease;
-}
-
-.action-card i {
-  font-size: 1.9rem;
-  color: #2147d9;
-  margin-top: 20px;
+  padding: 10px 30px;
+  margin-bottom: 15px;
 }
 
 .action-card:hover {
@@ -89,9 +96,28 @@ body, html {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.action-card.active {
-  border: 2px solid #2147d9;
+
+
+/* Align icon and text inline */
+.card-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
+
+.card-content i {
+  font-size: 3.5rem; 
+  color: #2147d9;
+}
+
+.card-content h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #222;
+}
+
+
 
 /* RIGHT OFFER CARDS */
 .right-cards {

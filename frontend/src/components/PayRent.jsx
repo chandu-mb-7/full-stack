@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Container, Card, Row, Col } from "react-bootstrap";
 import "./PayRent.css";
 
-const PayPage = () => {
+const PayRent = () => {
   const [openFAQ, setOpenFAQ] = useState(null);
   const toggleFAQ = (i) => setOpenFAQ(openFAQ === i ? null : i);
 
@@ -29,6 +29,27 @@ const PayPage = () => {
     },
   ];
 
+  const rotatingWords = [
+  "Rent",
+  "Maintenance",
+  "Education Fee",
+  "Property Deposit",
+  "Shop Rent",
+  "Tuition Fee",
+];
+
+const [rotatingWord, setRotatingWord] = useState(rotatingWords[0]);
+
+React.useEffect(() => {
+  let index = 0;
+  const interval = setInterval(() => {
+    index = (index + 1) % rotatingWords.length;
+    setRotatingWord(rotatingWords[index]);
+  }, 2000); 
+  return () => clearInterval(interval);
+}, []);
+
+
   return (
     <div className="pay-page">
       {/* === FIXED BLUE HEADER === */}
@@ -36,29 +57,40 @@ const PayPage = () => {
         <div className="blue-bg">
           <Container className="text-center">
             <h2 className="main-heading">Payments via Credit Card</h2>
-            <p className="subtext ">
-              START NEW PAYMENT FOR <span className="highlight">Rent</span>
-            </p>
+           <p className="subtext">
+  START NEW PAYMENT FOR{"   "}
+  <span className="highlight rotating-text subtext bold">{rotatingWord}</span>
+</p>
           </Container>
         </div>
 
         {/* Floating white cards (overlap area) */}
-        <div className="floating-cards">
-          <div className="max-container">
-            <Card className="action-card">
-              <i className="bi bi-person-circle"></i>
-              <h6>to Contact</h6>
-            </Card>
-            <Card className="action-card active">
-              <i className="bi bi-upc-scan"></i>
-              <h6>to UPI</h6>
-            </Card>
-            <Card className="action-card">
-              <i className="bi bi-bank"></i>
-              <h6>to Bank Account</h6>
-            </Card>
-          </div>
+       <div className="floating-cards">
+  <div className="max-container">
+    <div className="card-row">
+      <Card className="action-card">
+        <div className="card-content">
+          <i className="bi bi-person-circle"></i>
+          <h6>to Contact</h6>
         </div>
+      </Card>
+      <Card className="action-card ">
+        <div className="card-content">
+          <i className="bi bi-upc-scan"></i>
+          <h6>to UPI</h6>
+        </div>
+      </Card>
+      <Card className="action-card">
+        <div className="card-content">
+          <i className="bi bi-bank"></i>
+          <h6>to Bank Account</h6>
+        </div>
+      </Card>
+    </div>
+  </div>
+</div>
+
+
       </header>
 
       {/* === MAIN CONTENT (scrolls underneath) === */}
@@ -160,4 +192,4 @@ const PayPage = () => {
   );
 };
 
-export default PayPage;
+export default PayRent;

@@ -31,6 +31,9 @@ const Service = ({ onOpenCityModal }) => {
       window.open("/property-legal", "_blank");
     } else if (service.text === "NoBroker For NRIs") {
       window.open("/nri-services", "_blank");
+
+
+
     } else {
       navigate(service.link);
     }
@@ -108,23 +111,23 @@ const Service = ({ onOpenCityModal }) => {
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-  switch (feature.text) {
-    case "Avoid Brokers":
-      navigate("/avoid-brokers");
-      break;
-    case "Free Listing":
-      navigate("/owner");
-      break;
-    case "Shortlist without Visit":
-      navigate("/avoid-brokers?section=tenants");
-      break;
-    case "Rental Agreement":
-      navigate("/rental-agreement");
-      break;
-    default:
-      break;
-  }
-}}
+                  switch (feature.text) {
+                    case "Avoid Brokers":
+                      navigate("/avoid-brokers");
+                      break;
+                    case "Free Listing":
+                      navigate("/owner");
+                      break;
+                    case "Shortlist without Visit":
+                      navigate("/avoid-brokers?section=tenants");
+                      break;
+                    case "Rental Agreement":
+                      navigate("/rental-agreement");
+                      break;
+                    default:
+                      break;
+                  }
+                }}
 
               >
                 <img

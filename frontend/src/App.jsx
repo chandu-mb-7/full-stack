@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 import Navbar from "./components/Navbar";
 import SaleAgreementPage from "./components/SaleAgreementPage";
@@ -24,6 +23,7 @@ import PackerAndMover from "./components/PakerAndMover";
 import HomePainting from "./components/HomePainting";
 import ClickAndEarn from "./components/ClickAndEarn";
 import PayRent from "./components/PayRent";
+// import BusinessAssist from "./components/BusinessAssist";
 
 function AppContent() {
   const location = useLocation();
@@ -74,10 +74,10 @@ function AppContent() {
         />
         <Route path="/rent" element={<RentService />} />
         <Route path="/commercial" element={<RentService />} />
-          <Route path="/packers-movers" element={<PackerAndMover/>} />
-          <Route path="/home-painting" element={<HomePainting/>} />
-          <Route path="/click-earn" element={<ClickAndEarn/>} />
-          <Route path="/pay-rent-online" element={<PayRent/>} />
+        <Route path="/packers-movers" element={<PackerAndMover />} />
+        <Route path="/home-painting" element={<HomePainting />} />
+        <Route path="/click-earn" element={<ClickAndEarn />} />
+        <Route path="/pay-rent-online" element={<PayRent />} />
 
         {/* --- Service Related Pages --- */}
         <Route
@@ -97,6 +97,7 @@ function AppContent() {
         <Route path="/property-legal" element={<PropertyLegalService />} />
         <Route path="/nri-services" element={<NoBrokerForNRIs />} />
       </Routes>
+      {/* <BusinessAssist /> */}
     </>
   );
 }
