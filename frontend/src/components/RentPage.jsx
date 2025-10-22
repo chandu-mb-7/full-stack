@@ -1,9 +1,9 @@
 import RentService from "./RentService";
 
 const RentPage = () => {
-  
+
   return (
-    <RentService/>
+    <RentService />
   );
 };
 
