@@ -23,6 +23,7 @@ import PackerAndMover from "./components/PakerAndMover";
 import HomePainting from "./components/HomePainting";
 import ClickAndEarn from "./components/ClickAndEarn";
 import PayRent from "./components/PayRent";
+import Enquire from "./enquiry/Enquire";
 // import BusinessAssist from "./components/BusinessAssist";
 
 function AppContent() {
@@ -66,6 +67,7 @@ function AppContent() {
         <Route path="/" element={<HomePage />} />
         <Route path="/owner" element={<OwnerForm />} />
         <Route path="/property-details" element={<PropertyDetails />} />
+        <Route path="/enquire" element={<Enquire />} />
 
         {/* --- Buy / Rent --- */}
         <Route
@@ -98,6 +100,8 @@ function AppContent() {
         <Route path="/nri-services" element={<NoBrokerForNRIs />} />
       </Routes>
       {/* <BusinessAssist /> */}
+
+
     </>
   );
 }

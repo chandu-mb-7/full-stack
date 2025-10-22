@@ -1,0 +1,163 @@
+.hero-section {
+    background: linear-gradient(90deg, #e53935, #d32f2f);
+    color: white;
+    position: relative;
+    border-radius: 0 0 40px 40px;
+    overflow: hidden;
+}
+
+/* Header */
+.top-bar {
+    background: transparent;
+}
+
+.nobroker-logo {
+    height: 35px;
+}
+
+.city-select {
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.user-icon {
+    color: white;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+/* Hero Text */
+.hero-content {
+    padding: 60px 0;
+}
+
+.hero-content .title {
+    font-size: 2rem;
+}
+
+.stats span {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* Search Bar */
+.search-bar {
+    gap: 10px;
+}
+
+.search-select {
+    background: white;
+    color: #555;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 15px;
+    width: 220px;
+    font-size: 0.95rem;
+    transition: box-shadow 0.3s;
+}
+
+.search-select:focus {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.search-btn {
+    background: black;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.search-btn:hover {
+    background: #333;
+}
+
+/* Offer Section */
+.offer-section {
+    background: #fff6f6;
+    border-radius: 0 0 40px 40px;
+}
+
+.offer-left h3 {
+    font-weight: 600;
+}
+
+.highlight {
+    text-decoration: underline;
+}
+
+.offer-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 180px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.family-img {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.offer-right .tags span {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.form-input {
+    border-radius: 10px;
+}
+
+.connect-btn {
+    background: #e53935;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 20px;
+    font-weight: 600;
+}
+
+.connect-btn:hover {
+    background: #d32f2f;
+}
+
+/* Floating Shorts Button */
+.shorts-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #e53935;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.shorts-btn:hover {
+    background: #d32f2f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-content .title {
+        font-size: 1.4rem;
+    }
+
+    .search-select {
+        width: 100%;
+    }
+
+    .offer-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .offer-card {
+        width: 80%;
+    }
+}

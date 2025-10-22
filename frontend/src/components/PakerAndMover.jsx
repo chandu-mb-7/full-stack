@@ -146,7 +146,7 @@ const PackerAndMover = () => {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="hero-section position-relative  ">
+    <div className="hero-section position-relative   ">
 
       <div className="container-fluid">
         <div className="row  align-items-start">

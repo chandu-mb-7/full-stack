@@ -2,6 +2,8 @@
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
 }
 
+
+
 .why-card h5,
 .comparison-card h5 {
   color: #2e2e2e;
@@ -59,6 +61,7 @@
 }
 
 @media (max-width: 768px) {
+
   .why-card h5,
   .comparison-card h5 {
     text-align: center;
@@ -68,7 +71,7 @@
     margin: 0 auto;
   }
 
-  .why-card .row > div {
+  .why-card .row>div {
     text-align: center;
     flex-direction: column;
   }

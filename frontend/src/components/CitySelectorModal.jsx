@@ -47,11 +47,11 @@ export default function CitySelectorModal({ isOpen, onClose, onCitySelect }) {
   return (
     <div
       className={`city-overlay ${isOpen ? "show" : ""}`}
-      onClick={handleOverlayClick} 
+      onClick={handleOverlayClick}
     >
       <div
         className={`city-modal ${isOpen ? "slide-in" : "slide-out"}`}
-        onClick={(e) => e.stopPropagation()} 
+        onClick={(e) => e.stopPropagation()}
       >
         <button className="close-btn" onClick={onClose}>
           ✕
