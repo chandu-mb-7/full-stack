@@ -1,11 +1,13 @@
 import Property from "../models/Property.js";
+import nodemailer from "nodemailer";
+import User from "../models/User.js"; // 👈 or Driver.js depending on your actual file name
 
-// ✅ Create new property
+/* ============================================================
+   ✅ Create New Property + Send Confirmation Email
+============================================================ */
 export const createProperty = async (req, res) => {
   try {
-    // ✅ Use phone number from token (since OTP login)
     const ownerId = req.user?.phone;
-
     if (!ownerId) {
       return res.status(400).json({
         success: false,
@@ -46,13 +48,57 @@ export const createProperty = async (req, res) => {
 
     await newProperty.save();
 
+    // 🔍 Find logged-in user’s email from DB (based on phone)
+    const user = await User.findOne({ phone: ownerId });
+
+    const recipientEmail = user?.email;
+
+    if (recipientEmail) {
+      // ✉️ Set up Gmail transporter
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
+
+      const mailOptions = {
+        from: `"NoBroker Team" <${process.env.EMAIL_USER}>`,
+        to: recipientEmail, 
+        subject: "✅ Property Posted Successfully on NoBroker",
+        html: `
+          <h2>Your Property Has Been Posted Successfully 🎉</h2>
+          <p>Dear ${user.name || "Owner"},</p>
+          <p>Here are your property details:</p>
+          <ul>
+            <li><b>City:</b> ${city || "N/A"}</li>
+            <li><b>Locality:</b> ${locality || "N/A"}</li>
+            <li><b>Property Type:</b> ${propertyType || "N/A"}</li>
+            <li><b>Ad Type:</b> ${adType || "N/A"}</li>
+            <li><b>Rent:</b> ₹${rent || "N/A"}</li>
+            <li><b>Deposit:</b> ₹${deposit || "N/A"}</li>
+            <li><b>Availability:</b> ${availability || "N/A"}</li>
+          </ul>
+          <p>Manage or edit your listing anytime from the <b>My Properties</b> section.</p>
+          <br/>
+          <p>Regards,<br/>NoBroker Team</p>
+        `,
+      };
+
+      await transporter.sendMail(mailOptions);
+      console.log(`Email sent to ${recipientEmail}`);
+    } else {
+      console.warn(`No email found for user with phone: ${ownerId}`);
+    }
+
     res.status(201).json({
       success: true,
-      message: "Property posted successfully",
+      message: "Property posted successfully.",
       propertyId: newProperty._id,
     });
   } catch (error) {
-    console.error("❌ Error creating property:", error);
+    console.error("Error creating property:", error);
     res.status(500).json({
       success: false,
       message: "Failed to post property",
@@ -60,29 +106,16 @@ export const createProperty = async (req, res) => {
     });
   }
 };
-
-// ✅ Get all properties
-// ✅ Get all properties for a specific owner
 export const getAllProperties = async (req, res) => {
   try {
     const { ownerId } = req.query;
 
-    // Ensure ownerId is passed
-    if (!ownerId) {
-      return res.status(400).json({
-        success: false,
-        message: "ownerId (phone) is required to fetch properties",
-      });
-    }
+    let query = {};
+    if (ownerId) query.ownerId = ownerId; 
 
-    // Normalize to always start with +91
-    const normalizedOwnerId = ownerId.startsWith("+91")
-      ? ownerId
-      : `+91${ownerId}`;
+    const properties = await Property.find(query).sort({ createdAt: -1 });
 
-    const properties = await Property.find({ ownerId: normalizedOwnerId });
-
-    return res.status(200).json({
+    res.json({
       success: true,
       count: properties.length,
       properties,
@@ -97,7 +130,6 @@ export const getAllProperties = async (req, res) => {
   }
 };
 
-// ✅ Get property by ID
 export const getPropertyById = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
@@ -116,30 +148,55 @@ export const getPropertyById = async (req, res) => {
     });
   }
 };
-// ✅ Delete property
-export const deleteProperty = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const property = await Property.findByIdAndDelete(id);
-    if (!property) {
-      return res.status(404).json({ success: false, message: "Property not found" });
-    }
-    res.json({ success: true, message: "Property deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to delete property", error: error.message });
-  }
-};
 
-// ✅ Update property
 export const updateProperty = async (req, res) => {
   try {
     const { id } = req.params;
     const updated = await Property.findByIdAndUpdate(id, req.body, { new: true });
     if (!updated) {
-      return res.status(404).json({ success: false, message: "Property not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Property not found",
+      });
     }
-    res.json({ success: true, message: "Property updated successfully", property: updated });
+
+    res.json({
+      success: true,
+      message: "Property updated successfully",
+      property: updated,
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to update property", error: error.message });
+    console.error("Error updating property:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update property",
+      error: error.message,
+    });
+  }
+};
+
+export const deleteProperty = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const property = await Property.findByIdAndDelete(id);
+
+    if (!property) {
+      return res.status(404).json({
+        success: false,
+        message: "Property not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Property deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting property:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete property",
+      error: error.message,
+    });
   }
 };

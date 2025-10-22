@@ -13,6 +13,8 @@ export const verifyToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "testsecret");
     req.user = decoded;
+    console.log("Token Decoded =>", decoded);
+
     next();
   } catch (err) {
     console.error("Invalid token:", err.message);
